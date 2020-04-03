@@ -54,9 +54,7 @@ code {
   color: white;
   padding-left: 15px;
 }
-.todo-wrapper form .input-wrapper input::placeholder {
-  color:white;
-}
+
 .todo-wrapper form .input-wrapper button {
   /* width: 110px; */
   /* margin: 25px 10px 25px 25px; */
@@ -116,9 +114,9 @@ code {
 .todo-wrapper form .todo-list ul li input[type=checkbox]{
   border: 2px solid #fff;
   float: left;
-  width: 20px;
-  height: 20px;
-  background-color: ;
+  width: 40px;
+  height: 40px;
+  margin-left:20px;
 }
 
 
@@ -128,4 +126,39 @@ ul.finished li {
 
 ul h4 {
   text-align: left;
+}
+
+.todo-wrapper form .input-wrapper input::placeholder {
+  /* color:white; */
+  animation: pulse 5s infinite ;
+  -webkit-animation: pulse 5s infinite;
+}
+
+.todo-wrapper form .input-wrapper input::-webkit-input-placeholder {
+  color:white;
+  animation: pulse 5s infinite ;
+  -webkit-animation: pulse 5s infinite;
+}
+
+
+/* animation on placeholder currently doesn't work, will fix later */
+
+@keyframes pulse {
+  from {
+    color: red;
+  }
+  to {
+    color:blue;
+  }
+
+}
+
+@-webkit-keyframes pulse  /* Safari and Chrome */
+{
+  from {
+    color: red;
+  } 
+  to {
+    color:blue;
+  }
 }

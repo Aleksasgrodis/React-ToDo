@@ -58,11 +58,18 @@ function App() {
  
   const ActiveCounter = () => {
     const completedAmount = todoList.filter(todo => todo.completed === false).length;
+    if(completedAmount === 1) {
+      return (<h5> <span>{completedAmount}</span> active task remains.</h5>)
+    }
     return ( <h5> <span>{completedAmount}</span> active tasks remain.</h5>)
   };
 
   const CompletedCounter = () => {
     const completedAmount = todoList.filter(todo => todo.completed === true).length;
+    if(completedAmount === 1) {
+      return (<h5> <span>{completedAmount}</span> task completed.</h5>)
+    }
+    
     return ( <h5> <span>{completedAmount}</span> tasks completed.</h5> )
   };
 
@@ -88,22 +95,22 @@ function App() {
                   .filter(todo => todo.completed === false)
                   .map(todo => (
                     <li key={todo.id}>
-                      <label>{todo.text}</label>
+                      
                       <input
                         type="checkbox"
                         key={todo.id}
                         name={todo.id}
                         checked={todo.completed}
                         onChange={checkboxChange}
+                        id={"box" + todo.id}
                       />
-                      <span></span>
-                      
+                        <label htmlFor={"box" + todo.id}>{todo.text}</label>
                     </li>
                   ))}
               </ul>
             </div>
             <div className="todo-list">
-              <ul className="finished">
+              <ul className="active">
                 
                   <CompletedCounter />
                 
@@ -114,8 +121,9 @@ function App() {
                       name={todo.id}
                       checked={todo.completed}
                       onChange={taskUncompleted}
+                      id={"box" + todo.id}
                     />
-                    <span>{todo.text}</span>
+                    <label htmlFor={"box" + todo.id}>{todo.text}</label>
                   </li>
                 ))}
               </ul>

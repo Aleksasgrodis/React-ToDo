@@ -6,19 +6,19 @@ function App() {
   const [todoList, setTodoList] = useState([
     {
       id: 0,
-      text: "Clean Drawers",
-      done: false,
-      note: "Only the living room resk"
+      text: "Clean workdesk",
+      completed: false,
+      note: "Remove gum from under the desk"
     },
-    { id: 1, text: "Buy Groceries", done: false },
-    { id: 2, text: "Sell Macbook", done: false },
-    { id: 3, text: "Buy toilet paper", done: true },
-    { id: 4, text: "Inhale dust cleaner", done: true },
-    { id: 5, text: "Social Distance", done: true },
+    { id: 1, text: "Sell organs", completed: false },
+    { id: 2, text: "Delete browsing history", completed: false },
+    { id: 3, text: "Buy toilet paper", completed: true },
+    { id: 4, text: "Inhale dust cleaner", completed: true },
+    { id: 5, text: "Social Distance", completed: true },
     {
       id: 6,
       text: "Buy private jet",
-      done: true,
+      completed: true,
       note: "the very expensive one"
     }
   ]);
@@ -27,14 +27,14 @@ function App() {
     event.preventDefault();
     let status = (event.target.checked = !event.target.checked);
     let newList = [...todoList]; //i dont know why this fixed it?>!?!
-    newList[event.target.name].done = !status;
+    newList[event.target.name].completed = !status;
     setTodoList(newList);
   };
 
 
-  const taskUndone = event => {
+  const taskUncompleted = event => {
     let newList = [...todoList];
-    newList[event.target.name].done = event.target.checked;
+    newList[event.target.name].completed = event.target.checked;
     setTodoList(newList);
   }
 
@@ -42,23 +42,30 @@ function App() {
     event.preventDefault();
     const newTodos = {
       text: newTodo,
-      done: false,
+      completed: false,
       id: todoList.length
     };
     setTodoList(todoList.concat(newTodos));
     setNewTodo("");
   };
 
-  const finishedTodos = todoList.filter(todo => todo.done === true);
+  const finishedTodos = todoList.filter(todo => todo.completed === true);
 
   const onChangeHandler = event => {
     setNewTodo(event.target.value);
   };
 
-  const Counter = () => {
-    const doneAmount = todoList.filter(todo => todo.done === true).length;
-    return doneAmount;
+ 
+  const ActiveCounter = () => {
+    const completedAmount = todoList.filter(todo => todo.completed === false).length;
+    return ( <h5> <span>{completedAmount}</span> active tasks remain.</h5>)
   };
+
+  const CompletedCounter = () => {
+    const completedAmount = todoList.filter(todo => todo.completed === true).length;
+    return ( <h5> <span>{completedAmount}</span> tasks completed.</h5> )
+  };
+
 
   const [newTodo, setNewTodo] = useState("");
 
@@ -76,19 +83,20 @@ function App() {
 
             <div className="todo-list">
               <ul className="active">
-                <h4>Get this done</h4>
+                <ActiveCounter />
                 {todoList
-                  .filter(todo => todo.done === false)
+                  .filter(todo => todo.completed === false)
                   .map(todo => (
                     <li key={todo.id}>
+                      <label>{todo.text}</label>
                       <input
                         type="checkbox"
                         key={todo.id}
                         name={todo.id}
-                        checked={todo.done}
+                        checked={todo.completed}
                         onChange={checkboxChange}
                       />
-                      <span>{todo.text}</span>
+                      <span></span>
                       
                     </li>
                   ))}
@@ -96,16 +104,16 @@ function App() {
             </div>
             <div className="todo-list">
               <ul className="finished">
-                <h4>
-                  Finished <Counter />
-                </h4>
-                {finishedTodos.map(todo => (
-                  <li>
+                
+                  <CompletedCounter />
+                
+                {finishedTodos.map((todo, index) => (
+                  <li key={index}>
                     <input
                       type="checkbox"
                       name={todo.id}
-                      checked={todo.done}
-                      onChange={taskUndone}
+                      checked={todo.completed}
+                      onChange={taskUncompleted}
                     />
                     <span>{todo.text}</span>
                   </li>

@@ -54,6 +54,9 @@ code {
   color: white;
   padding-left: 15px;
 }
+.todo-wrapper form .input-wrapper input::placeholder {
+  color:white;
+}
 .todo-wrapper form .input-wrapper button {
   /* width: 110px; */
   /* margin: 25px 10px 25px 25px; */
@@ -62,7 +65,7 @@ code {
   height: 66px;
   font-size: 25px;
   font-weight: 700;
-  background: #E26E6F;
+  background: #70B9E6;
   color: white;
   border: 2px solid #fff;
   border-radius: 5px;
@@ -84,24 +87,30 @@ code {
   flex-direction: column;
   padding: 0;
 }
-.todo-wrapper form .todo-list ul h4{
+.todo-wrapper form .todo-list ul h5{
   color: #689999;
+  margin: 0;
+  text-align: left;
+}
+.todo-wrapper form .todo-list ul h5 span{
+  font-size: 35px;
 }
 
 
+
 .todo-wrapper form .todo-list ul li{
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   height: 50px;
   background: #92D7D7;
   border: 2px solid #fff;
   text-align: left;
   border-radius: 5px;
   box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
-  display: table;
 }
-.todo-wrapper form .todo-list ul li span{
-  vertical-align: center;
-  display: table-cell;
+.todo-wrapper form .todo-list ul li label{
+  line-height: 50px;
+  font-size: 25px;
+  margin-left: 20px;
 }
 
 .todo-wrapper form .todo-list ul li input[type=checkbox]{
@@ -111,6 +120,8 @@ code {
   height: 20px;
   background-color: ;
 }
+
+
 ul.finished li {
   text-decoration: line-through;
 }

@@ -22,6 +22,7 @@ code {
   border: 3px solid #EDEDED;
   background: #fff;
   border-radius: 5px;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
   
 }
 
@@ -75,7 +76,7 @@ code {
 }
 
 .todo-wrapper form .todo-list {
-  margin: 25px;
+  margin: 0px 25px 0 25px;
 }
 
 .todo-wrapper form .todo-list ul{
@@ -84,10 +85,12 @@ code {
   flex-wrap: nowrap;
   flex-direction: column;
   padding: 0;
+  margin: 0;
 }
 .todo-wrapper form .todo-list ul h5{
   color: #689999;
-  margin: 0;
+  margin:0;
+  margin-bottom: 3px;
   text-align: left;
 }
 .todo-wrapper form .todo-list ul h5 span{
@@ -97,7 +100,7 @@ code {
 
 
 .todo-wrapper form .todo-list ul li{
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   height: 50px;
   background: #92D7D7;
   border: 2px solid #fff;
@@ -105,10 +108,18 @@ code {
   border-radius: 5px;
   box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
 }
+.todo-wrapper form .todo-list ul li:nth-last-child(1){
+  margin-bottom: 25px;
+}
 .todo-wrapper form .todo-list ul li label{
   line-height: 50px;
   font-size: 25px;
   margin-left: 20px;
+}
+.todo-wrapper form .todo-list ul li label:before{
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
 }
 
 .todo-wrapper form .todo-list ul li input[type=checkbox]{
@@ -117,48 +128,50 @@ code {
   width: 40px;
   height: 40px;
   margin-left:20px;
-}
 
-
-ul.finished li {
-  text-decoration: line-through;
-}
-
-ul h4 {
-  text-align: left;
 }
 
 .todo-wrapper form .input-wrapper input::placeholder {
-  /* color:white; */
-  animation: pulse 5s infinite ;
-  -webkit-animation: pulse 5s infinite;
+  color:white;
+  opacity: 0.5;
+  font-size: 25px;
+  font-weight: 400;
+  animation-name: xzh;
+  -webkit-animation-name: xzh;
+  animation-duration: 5s;
+  -webkit-animation-duration: 5s;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
 }
 
 .todo-wrapper form .input-wrapper input::-webkit-input-placeholder {
   color:white;
-  animation: pulse 5s infinite ;
-  -webkit-animation: pulse 5s infinite;
+  animation-name: xzh;
+  -webkit-animation-name: xzh;
+  animation-duration: 5s;
+  -webkit-animation-duration: 5s;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
 }
-
 
 /* animation on placeholder currently doesn't work, will fix later */
 
-@keyframes pulse {
-  from {
-    color: red;
+@keyframes xzh {
+  0%{
+    font-size: 1px;
   }
-  to {
-    color:blue;
+  100%{
+    font-size: 50px;
   }
 
 }
 
-@-webkit-keyframes pulse  /* Safari and Chrome */
+@-webkit-keyframes xzh  /* Safari and Chrome */
 {
-  from {
+  0%{
     color: red;
-  } 
-  to {
+  }
+  100%{
     color:blue;
   }
 }

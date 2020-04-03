@@ -23,16 +23,16 @@ function App() {
     }
   ]);
 
-  const checkboxChange = event => {
+  const taskDone = event => {
     event.preventDefault();
-    let status = (event.target.checked = !event.target.checked);
-    let newList = [...todoList]; //i dont know why this fixed it?>!?!
-    newList[event.target.name].completed = !status;
+    let newList = [...todoList];
+    newList[event.target.name].completed = event.target.checked;
     setTodoList(newList);
   };
 
 
-  const taskUncompleted = event => {
+  const taskUndone = event => {
+    event.preventDefault();
     let newList = [...todoList];
     newList[event.target.name].completed = event.target.checked;
     setTodoList(newList);
@@ -101,7 +101,7 @@ function App() {
                         key={todo.id}
                         name={todo.id}
                         checked={todo.completed}
-                        onChange={checkboxChange}
+                        onChange={taskDone}
                         id={"box" + todo.id}
                       />
                         <label htmlFor={"box" + todo.id}>{todo.text}</label>
@@ -120,7 +120,7 @@ function App() {
                       type="checkbox"
                       name={todo.id}
                       checked={todo.completed}
-                      onChange={taskUncompleted}
+                      onChange={taskUndone}
                       id={"box" + todo.id}
                     />
                     <label htmlFor={"box" + todo.id}>{todo.text}</label>

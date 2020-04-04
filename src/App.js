@@ -102,7 +102,8 @@ function App() {
     return todoList
       .filter((task) => task.completed === false)
       .sort((a, b) => b.date - a.date)
-      .map((task) => (
+      .map((task, index) => (
+        <div key={task.id}>
         <ListItem key={task.id} dense button>
           <ListItemIcon>
             <Checkbox
@@ -114,11 +115,13 @@ function App() {
           </ListItemIcon>
           <ListItemText primary={task.text} />
           <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="comments">
-              <CommentIcon />
+            <IconButton edge="end" aria-label="delete">
+              <DeleteIcon />
             </IconButton>
           </ListItemSecondaryAction>
         </ListItem>
+        <Divider light/>
+        </div>
       ));
   };
 
@@ -140,69 +143,72 @@ function App() {
   //       </li>
   //     ));
   // };
-  // const CompletedTasks = () => {
-  //   return todoList
-  //     .filter((task) => task.completed === true)
-  //     .sort((a, b) => b.date - a.date)
-  //     .map((task) => (
-  //       <ListItem key={task.id} dense button>
-  //         <ListItemIcon>
-  //           <Checkbox
-  //             edge="start"
-  //             checked={task.completed}
-  //             onChange={taskDone}
-  //             name={task.id}
-  //           />
-  //         </ListItemIcon>
-  //         <ListItemText primary={task.text} />
-  //         <ListItemSecondaryAction>
-  //           <IconButton edge="end" aria-label="comments">
-  //             <CommentIcon />
-  //           </IconButton>
-  //         </ListItemSecondaryAction>
-  //       </ListItem>
-  //     ));
-  // };
-
   const CompletedTasks = () => {
     return todoList
       .filter((task) => task.completed === true)
       .sort((a, b) => b.date - a.date)
       .map((task) => (
-        <ExpansionPanel>
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-label="Expand"
-            aria-controls="additional-actions1-content"
-            id="additional-actions1-header"
-          >
-            <FormControlLabel
-              aria-label="Acknowledge"
-              onClick={(event) => event.stopPropagation()}
-              onFocus={(event) => event.stopPropagation()}
-              control={
-                <Checkbox
-                  edge="start"
-                  checked={task.completed}
-                  onChange={taskDone}
-                  name={task.id}
-                />
-              }
-              label={task.text}
+        <div key={task.id}>
+        <ListItem dense button>
+          <ListItemIcon>
+            <Checkbox
+              edge="start"
+              checked={task.completed}
+              onChange={taskDone}
+              name={task.id}
             />
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            {/* <Typography color="textSecondary">{task.note}</Typography> */}
-            <TextField fullWidth
-          id="outlined-helperText"
-          label="Note"
-          value={task.note}
-          variant="outlined"
-        />
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+          </ListItemIcon>
+          <ListItemText primary={task.text} />
+          <ListItemSecondaryAction>
+            <IconButton edge="end" aria-label="delete">
+              <DeleteIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+        <Divider light/>
+        </div>
       ));
   };
+
+  // const CompletedTasks = () => {
+  //   return todoList
+  //     .filter((task) => task.completed === true)
+  //     .sort((a, b) => b.date - a.date)
+  //     .map((task) => (
+  //       <ExpansionPanel>
+  //         <ExpansionPanelSummary
+  //           expandIcon={<ExpandMoreIcon />}
+  //           aria-label="Expand"
+  //           aria-controls="additional-actions1-content"
+  //           id="additional-actions1-header"
+  //         >
+  //           <FormControlLabel
+  //             aria-label="Acknowledge"
+  //             onClick={(event) => event.stopPropagation()}
+  //             onFocus={(event) => event.stopPropagation()}
+  //             control={
+  //               <Checkbox
+  //                 edge="start"
+  //                 checked={task.completed}
+  //                 onChange={taskDone}
+  //                 name={task.id}
+  //               />
+  //             }
+  //             label={task.text}
+  //           />
+  //         </ExpansionPanelSummary>
+  //         <ExpansionPanelDetails>
+  //           {/* <Typography color="textSecondary">{task.note}</Typography> */}
+  //           <TextField fullWidth
+  //         id="outlined-helperText"
+  //         label="Note"
+  //         value={task.note}
+  //         variant="outlined"
+  //       />
+  //         </ExpansionPanelDetails>
+  //       </ExpansionPanel>
+  //     ));
+  // };
 
   const ActiveCounter = () => {
     const completedAmount = todoList.filter((todo) => todo.completed === false)
@@ -249,7 +255,6 @@ function App() {
 
   const [newTodo, setNewTodo] = useState("");
 
-  //change map and filters to actual functions/components
 
   return (
     <div className="App">

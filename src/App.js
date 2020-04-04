@@ -68,13 +68,7 @@ function App() {
 
   const classes = useStyles();
 
-  const taskDone = (event) => {
-    event.preventDefault();
-    let newList = [...todoList];
-    newList[event.target.name].completed = event.target.checked;
-    newList[event.target.name].date = new Date();
-    setTodoList(newList);
-  };
+  
 
   const addTodo = (event) => {
     event.preventDefault();
@@ -99,6 +93,15 @@ function App() {
   };
 
   const ActiveTasks = () => {
+    const taskDone = (id, event) => {
+      event.preventDefault();
+      let newList = [...todoList];
+      newList[id].completed = event.target.checked;
+      newList[id].date = new Date();
+      setTodoList(newList);
+    };
+
+
     return todoList
       .filter((task) => task.completed === false)
       .sort((a, b) => b.date - a.date)
@@ -109,8 +112,7 @@ function App() {
             <Checkbox
               edge="start"
               checked={task.completed}
-              onChange={taskDone}
-              name={task.id}
+              onChange={(e) => {taskDone(task.id, e)}}
             />
           </ListItemIcon>
           <ListItemText primary={task.text} />
@@ -144,18 +146,27 @@ function App() {
   //     ));
   // };
   const CompletedTasks = () => {
+    const taskUndone = (id, event) => {
+      event.preventDefault();
+      let newList = [...todoList];
+      newList[id].completed = event.target.checked;
+      newList[id].date = new Date();
+      setTodoList(newList);
+    };
+
     return todoList
       .filter((task) => task.completed === true)
       .sort((a, b) => b.date - a.date)
-      .map((task) => (
+      .map((task, index) => (
         <div key={task.id}>
         <ListItem dense button>
           <ListItemIcon>
             <Checkbox
               edge="start"
               checked={task.completed}
-              onChange={taskDone}
-              name={task.id}
+              onChange={(e) =>{
+                return taskUndone(task.id, e);
+              }}
             />
           </ListItemIcon>
           <ListItemText primary={task.text} />

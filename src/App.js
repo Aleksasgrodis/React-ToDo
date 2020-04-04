@@ -39,27 +39,23 @@ function App() {
     setTodoList(newList);
   };
 
-  const taskUndone = event => {
-    event.preventDefault();
-    let newList = [...todoList];
-    newList[event.target.name].completed = event.target.checked;
-    setTodoList(newList);
-  };
-
   // disallow empty todo, add date for sorting
   const addTodo = event => {
     event.preventDefault();
-    const newTodos = {
-      text: newTodo,
-      completed: false,
-      id: todoList.length,
-      date: new Date()
-    };
-    setTodoList(todoList.concat(newTodos));
-    setNewTodo("");
+    if (newTodo.length !== 0){
+      const newTodos = {
+        text: newTodo,
+        completed: false,
+        id: todoList.length,
+        date: new Date()
+      };
+      setTodoList(todoList.concat(newTodos));
+      setNewTodo("");
+    } else {
+      alert("Task input field may not be empty!")
+    }
   };
 
- 
   const finishedTodos = todoList.filter(todo => todo.completed === true);
 
   const onChangeHandler = event => {
@@ -67,49 +63,41 @@ function App() {
   };
 
   const ActiveTasks = () => {
-    return (
-      
-        todoList
-          .filter(task => task.completed === false)
-          .sort((a, b) => b.date - a.date)
-          .map(task => (
-            <li key={task.id}>
-                      <input
-                        type="checkbox"
-                        key={task.id}
-                        name={task.id}
-                        checked={task.completed}
-                        onChange={taskDone}
-                        id={"box" + task.id}
-                      />
-                      <label htmlFor={"box" + task.id}>{task.text}</label>
-                    </li>
-          ))
-      
-    );
+    return todoList
+      .filter(task => task.completed === false)
+      .sort((a, b) => b.date - a.date)
+      .map(task => (
+        <li key={task.id}>
+          <input
+            type="checkbox"
+            key={task.id}
+            name={task.id}
+            checked={task.completed}
+            onChange={taskDone}
+            id={"box" + task.id}
+          />
+          <label htmlFor={"box" + task.id}>{task.text}</label>
+        </li>
+      ));
   };
 
   const CompletedTasks = () => {
-    return (
-      
-        todoList
-          .filter(task => task.completed === true)
-          .sort((a, b) => b.date - a.date)
-          .map(task => (
-            <li key={task.id}>
-                      <input
-                        type="checkbox"
-                        key={task.id}
-                        name={task.id}
-                        checked={task.completed}
-                        onChange={taskDone}
-                        id={"box" + task.id}
-                      />
-                      <label htmlFor={"box" + task.id}>{task.text}</label>
-                    </li>
-          ))
-      
-    );
+    return todoList
+      .filter(task => task.completed === true)
+      .sort((a, b) => b.date - a.date)
+      .map(task => (
+        <li key={task.id}>
+          <input
+            type="checkbox"
+            key={task.id}
+            name={task.id}
+            checked={task.completed}
+            onChange={taskDone}
+            id={"box" + task.id}
+          />
+          <label htmlFor={"box" + task.id}>{task.text}</label>
+        </li>
+      ));
   };
 
   const ActiveCounter = () => {
@@ -174,7 +162,7 @@ function App() {
             <div className="todo-list">
               <ul className="active">
                 <ActiveCounter />
-                
+
                 <ActiveTasks />
               </ul>
             </div>

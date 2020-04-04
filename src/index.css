@@ -24,11 +24,11 @@ code {
   
 }
 
-.todo-wrapper form .input-wrapper {
+/* .todo-wrapper form .input-wrapper {
   display: flex;
   flex-direction: row;
   margin: 25px;
-}
+} */
 
 /* .todo-wrapper form .input-wrapper input[type=text] {
   flex-grow: 3;

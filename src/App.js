@@ -22,11 +22,12 @@ import Typography from "@material-ui/core/Typography";
 import { typography } from "@material-ui/system";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import { Paper } from "@material-ui/core";
 
 function App() {
   const [todoList, setTodoList] = useState([
@@ -139,27 +140,67 @@ function App() {
   //       </li>
   //     ));
   // };
+  // const CompletedTasks = () => {
+  //   return todoList
+  //     .filter((task) => task.completed === true)
+  //     .sort((a, b) => b.date - a.date)
+  //     .map((task) => (
+  //       <ListItem key={task.id} dense button>
+  //         <ListItemIcon>
+  //           <Checkbox
+  //             edge="start"
+  //             checked={task.completed}
+  //             onChange={taskDone}
+  //             name={task.id}
+  //           />
+  //         </ListItemIcon>
+  //         <ListItemText primary={task.text} />
+  //         <ListItemSecondaryAction>
+  //           <IconButton edge="end" aria-label="comments">
+  //             <CommentIcon />
+  //           </IconButton>
+  //         </ListItemSecondaryAction>
+  //       </ListItem>
+  //     ));
+  // };
+
   const CompletedTasks = () => {
     return todoList
       .filter((task) => task.completed === true)
       .sort((a, b) => b.date - a.date)
       .map((task) => (
-        <ListItem key={task.id} dense button>
-          <ListItemIcon>
-            <Checkbox
-              edge="start"
-              checked={task.completed}
-              onChange={taskDone}
-              name={task.id}
+        <ExpansionPanel>
+          <ExpansionPanelSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-label="Expand"
+            aria-controls="additional-actions1-content"
+            id="additional-actions1-header"
+          >
+            <FormControlLabel
+              aria-label="Acknowledge"
+              onClick={(event) => event.stopPropagation()}
+              onFocus={(event) => event.stopPropagation()}
+              control={
+                <Checkbox
+                  edge="start"
+                  checked={task.completed}
+                  onChange={taskDone}
+                  name={task.id}
+                />
+              }
+              label={task.text}
             />
-          </ListItemIcon>
-          <ListItemText primary={task.text} />
-          <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="comments">
-              <CommentIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            {/* <Typography color="textSecondary">{task.note}</Typography> */}
+            <TextField fullWidth
+          id="outlined-helperText"
+          label="Note"
+          value={task.note}
+          variant="outlined"
+        />
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
       ));
   };
 
@@ -217,59 +258,37 @@ function App() {
 
         <section className="todo-wrapper">
           <form onSubmit={addTodo}>
-            <Grid container>
-              <Grid item xs={10}>
-                <TextField
-                  id="outlined-basic"
-                  label="Type your task here..."
-                  variant="outlined"
-                  value={newTodo}
-                  onChange={onChangeHandler}
-                  fullWidth
-                  size="small"
-                  color="secondary"
-                />
-              </Grid>
-              <Grid item xs={2}>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  type="submit"
-                  size="small"
-                  className={classes.button}
-                >
-                  <AddIcon style={{ fontSize: 30 }} />
-                </Button>
-              </Grid>
-            </Grid>
-            <div className="input-wrapper"></div>
+            <div className="input-wrapper">
+              <Paper elevation={3} style={{ margin: 16, padding: 16 }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={10}>
+                    <TextField
+                      id="outlined-basic"
+                      label="Type your task here..."
+                      variant="outlined"
+                      value={newTodo}
+                      onChange={onChangeHandler}
+                      fullWidth
+                      size="small"
+                      color="secondary"
+                    />
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      type="submit"
+                      size="small"
+                      className={classes.button}
+                    >
+                      <AddIcon style={{ fontSize: 30 }} />
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Paper>
+            </div>
 
             <div className="todo-list">
-              <ExpansionPanel>
-                <ExpansionPanelSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-label="Expand"
-                  aria-controls="additional-actions1-content"
-                  id="additional-actions1-header"
-                >
-                  <FormControlLabel
-                    aria-label="Acknowledge"
-                    onClick={(event) => event.stopPropagation()}
-                    onFocus={(event) => event.stopPropagation()}
-                    control={<Checkbox />}
-                    label="I acknowledge that I should stop the click event propagation"
-                  />
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                  <Typography color="textSecondary">
-                    The click event of the nested action will propagate up and
-                    expand the panel unless you explicitly stop it.
-                  </Typography>
-                </ExpansionPanelDetails>
-              </ExpansionPanel>
-
-
-
               <ActiveCounter />
               <List className={classes.root}>
                 <ActiveTasks />

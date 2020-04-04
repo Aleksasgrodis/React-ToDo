@@ -26,14 +26,6 @@ code {
   
 }
 
-
-
-.todo-wrapper form input {
-  /* width: 35vw; */
-  /* height: 30px;
-  font-size: 20px; */
-}
-
 .todo-wrapper form .input-wrapper {
   display: flex;
   flex-direction: row;

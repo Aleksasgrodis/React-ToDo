@@ -8,73 +8,152 @@ function App() {
       id: 0,
       text: "Clean workdesk",
       completed: false,
-      note: "Remove gum from under the desk"
+      note: "Remove gum from under the desk",
+      date: new Date(0)
     },
-    { id: 1, text: "Sell organs", completed: false },
-    { id: 2, text: "Delete browsing history", completed: false },
-    { id: 3, text: "Buy toilet paper", completed: true },
-    { id: 4, text: "Inhale dust cleaner", completed: true },
-    { id: 5, text: "Social Distance", completed: true },
+    { id: 1, text: "Sell organs", completed: false, date: new Date(0) },
+    {
+      id: 2,
+      text: "Delete browsing history",
+      completed: false,
+      date: new Date(0)
+    },
+    { id: 3, text: "Buy toilet paper", completed: true, date: new Date(0) },
+    { id: 4, text: "Inhale dust cleaner", completed: true, date: new Date(0) },
+    { id: 5, text: "Social Distance", completed: true, date: new Date(0) },
     {
       id: 6,
       text: "Buy private jet",
       completed: true,
-      note: "the very expensive one"
+      note: "the very expensive one",
+      date: new Date(0)
     }
   ]);
 
+  // maybe create a single function for both actions?
   const taskDone = event => {
     event.preventDefault();
     let newList = [...todoList];
     newList[event.target.name].completed = event.target.checked;
+    newList[event.target.name].date = new Date();
     setTodoList(newList);
   };
-
 
   const taskUndone = event => {
     event.preventDefault();
     let newList = [...todoList];
     newList[event.target.name].completed = event.target.checked;
     setTodoList(newList);
-  }
+  };
 
+  // disallow empty todo, add date for sorting
   const addTodo = event => {
     event.preventDefault();
     const newTodos = {
       text: newTodo,
       completed: false,
-      id: todoList.length
+      id: todoList.length,
+      date: new Date()
     };
     setTodoList(todoList.concat(newTodos));
     setNewTodo("");
   };
 
+ 
   const finishedTodos = todoList.filter(todo => todo.completed === true);
 
   const onChangeHandler = event => {
     setNewTodo(event.target.value);
   };
 
- 
+  const ActiveTasks = () => {
+    return (
+      
+        todoList
+          .filter(task => task.completed === false)
+          .sort((a, b) => b.date - a.date)
+          .map(task => (
+            <li key={task.id}>
+                      <input
+                        type="checkbox"
+                        key={task.id}
+                        name={task.id}
+                        checked={task.completed}
+                        onChange={taskDone}
+                        id={"box" + task.id}
+                      />
+                      <label htmlFor={"box" + task.id}>{task.text}</label>
+                    </li>
+          ))
+      
+    );
+  };
+
+  const CompletedTasks = () => {
+    return (
+      
+        todoList
+          .filter(task => task.completed === true)
+          .sort((a, b) => b.date - a.date)
+          .map(task => (
+            <li key={task.id}>
+                      <input
+                        type="checkbox"
+                        key={task.id}
+                        name={task.id}
+                        checked={task.completed}
+                        onChange={taskDone}
+                        id={"box" + task.id}
+                      />
+                      <label htmlFor={"box" + task.id}>{task.text}</label>
+                    </li>
+          ))
+      
+    );
+  };
+
   const ActiveCounter = () => {
-    const completedAmount = todoList.filter(todo => todo.completed === false).length;
-    if(completedAmount === 1) {
-      return (<h5> <span>{completedAmount}</span> active task remains.</h5>)
+    const completedAmount = todoList.filter(todo => todo.completed === false)
+      .length;
+    if (completedAmount === 1) {
+      return (
+        <h5>
+          {" "}
+          <span>{completedAmount}</span> active task remains.
+        </h5>
+      );
     }
-    return ( <h5> <span>{completedAmount}</span> active tasks remain.</h5>)
+    return (
+      <h5>
+        {" "}
+        <span>{completedAmount}</span> active tasks remain.
+      </h5>
+    );
   };
 
   const CompletedCounter = () => {
-    const completedAmount = todoList.filter(todo => todo.completed === true).length;
-    if(completedAmount === 1) {
-      return (<h5> <span>{completedAmount}</span> task completed.</h5>)
+    const completedAmount = todoList.filter(todo => todo.completed === true)
+      .length;
+    if (completedAmount === 1) {
+      return (
+        <h5>
+          {" "}
+          <span>{completedAmount}</span> task completed.
+        </h5>
+      );
     }
-    
-    return ( <h5> <span>{completedAmount}</span> tasks completed.</h5> )
+
+    return (
+      <h5>
+        {" "}
+        <span>{completedAmount}</span> tasks completed.
+      </h5>
+    );
   };
 
-
   const [newTodo, setNewTodo] = useState("");
+
+  //change map and filters to actual functions/components
 
   return (
     <div className="App">
@@ -84,48 +163,25 @@ function App() {
         <section className="todo-wrapper">
           <form onSubmit={addTodo}>
             <div className="input-wrapper">
-              <input type="text"  placeholder="Type your task here..." value={newTodo} onChange={onChangeHandler} />
+              <input
+                type="text"
+                placeholder="Type your task here..."
+                value={newTodo}
+                onChange={onChangeHandler}
+              />
               <button type="submit">ADD</button>
             </div>
-
             <div className="todo-list">
               <ul className="active">
                 <ActiveCounter />
-                {todoList
-                  .filter(todo => todo.completed === false)
-                  .map(todo => (
-                    <li key={todo.id}>
-                      
-                      <input
-                        type="checkbox"
-                        key={todo.id}
-                        name={todo.id}
-                        checked={todo.completed}
-                        onChange={taskDone}
-                        id={"box" + todo.id}
-                      />
-                        <label htmlFor={"box" + todo.id}>{todo.text}</label>
-                    </li>
-                  ))}
+                
+                <ActiveTasks />
               </ul>
             </div>
             <div className="todo-list">
               <ul className="active">
-                
-                  <CompletedCounter />
-                
-                {finishedTodos.map((todo, index) => (
-                  <li key={index}>
-                    <input
-                      type="checkbox"
-                      name={todo.id}
-                      checked={todo.completed}
-                      onChange={taskUndone}
-                      id={"box" + todo.id}
-                    />
-                    <label htmlFor={"box" + todo.id}>{todo.text}</label>
-                  </li>
-                ))}
+                <CompletedCounter />
+                <CompletedTasks />
               </ul>
             </div>
           </form>

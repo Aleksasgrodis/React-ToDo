@@ -21,10 +21,11 @@ import Grid from "@material-ui/core/Grid";
 
 import { Paper } from "@material-ui/core";
 import NewTaskComponent from "./components/NewTaskComponent";
-import ActiveCounter from "./components/ActiveCounter"
-import CompletedCounter from "./components/CompletedCounter"
-import ActiveTasks from "./components/ActiveTasks"
-import CompletedTasks from "./components/CompletedTasks"
+import ActiveCounter from "./components/ActiveCounter";
+import CompletedCounter from "./components/CompletedCounter";
+import ActiveTasks from "./components/ActiveTasks";
+import CompletedTasks from "./components/CompletedTasks";
+import Container from '@material-ui/core/Container';
 
 function App() {
   const [todoList, setTodoList] = useState([
@@ -65,28 +66,29 @@ function App() {
 
   const classes = useStyles();
 
-
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Amazing(ly terrible) Todo List</h1>
+      <Typography variant="h3" gutterBottom color="textSecondary">
+        AMAZING(LY BAD) TODO LIST
+      </Typography>
 
-        <section className="todo-wrapper">
-          <NewTaskComponent todoList={todoList} setTodoList={setTodoList}/>
+        <Container maxWidth="sm">
+          <NewTaskComponent todoList={todoList} setTodoList={setTodoList} />
 
           <Paper elevation={3} style={{ margin: 16, padding: 4 }}>
-            <ActiveCounter todoList={todoList}/>
+            <ActiveCounter todoList={todoList} />
             <List className={classes.root}>
-              <ActiveTasks todoList={todoList} setTodoList={setTodoList}/>
+              <ActiveTasks todoList={todoList} setTodoList={setTodoList} />
             </List>
           </Paper>
           <Paper elevation={3} style={{ margin: 16, padding: 4 }}>
+            <CompletedCounter todoList={todoList} />
             <List className={classes.root}>
-              <CompletedCounter todoList={todoList}/>
-              <CompletedTasks todoList={todoList} setTodoList={setTodoList}/>
+              <CompletedTasks todoList={todoList} setTodoList={setTodoList} />
             </List>
           </Paper>
-        </section>
+        </Container>
       </header>
     </div>
   );

@@ -94,18 +94,16 @@ function App() {
     setNewTodo(event.target.value);
   };
 
+  const checkboxHandler = (id) => {
+    let newList = [...todoList];
+    let indexOfTarget = newList.map(task => task.id).indexOf(id)
+    newList[indexOfTarget].completed = !newList[indexOfTarget].completed;
+    newList[indexOfTarget].date = new Date();
+    setTodoList(newList);
+  };
+
   const ActiveTasks = () => {
-    const taskDone = (id, event) => {
-      event.preventDefault();
-      let newList = [...todoList];
-      let indexOfTarget = newList.map(task => task.id).indexOf(id)
-      // console.log(`id is ${id} and index of target is ${indexOfTarget}`)
-      newList[indexOfTarget].completed = event.target.checked;
-      newList[indexOfTarget].date = new Date();
-      setTodoList(newList);
-    };
-
-
+    
     return todoList
       .filter((task) => task.completed === false)
       .sort((a, b) => b.date - a.date)
@@ -116,7 +114,7 @@ function App() {
             <Checkbox
               edge="start"
               checked={task.completed}
-              onChange={(e) => {taskDone(task.id, e)}}
+              onChange={() => checkboxHandler(task.id)}
             />
           </ListItemIcon>
           <ListItemText primary={task.text} />
@@ -126,29 +124,10 @@ function App() {
             </IconButton>
           </ListItemSecondaryAction>
         </ListItem>
-        <Divider light/>
         </div>
       ));
   };
 
-  // const CompletedTasks = () => {
-  //   return todoList
-  //     .filter(task => task.completed === true)
-  //     .sort((a, b) => b.date - a.date)
-  //     .map(task => (
-  //       <li key={task.id}>
-  //         <input
-  //           type="checkbox"
-  //           key={task.id}
-  //           name={task.id}
-  //           checked={task.completed}
-  //           onChange={taskDone}
-  //           id={"box" + task.id}
-  //         />
-  //         <label htmlFor={"box" + task.id}>{task.text}</label>
-  //       </li>
-  //     ));
-  // };
 
   const deleteTask = (id, e) => {
     e.preventDefault();
@@ -160,14 +139,6 @@ function App() {
 
 
   const CompletedTasks = () => {
-    const taskUndone = (id, event) => {
-      event.preventDefault();
-      let newList = [...todoList];
-      let indexOfTarget = newList.map(task => task.id).indexOf(id)
-      newList[indexOfTarget].completed = event.target.checked;
-      newList[indexOfTarget].date = new Date();
-      setTodoList(newList);
-    };
 
     return todoList
       .filter((task) => task.completed === true)
@@ -179,9 +150,7 @@ function App() {
             <Checkbox
               edge="start"
               checked={task.completed}
-              onChange={(e) =>{
-                return taskUndone(task.id, e);
-              }}
+              onChange={() => checkboxHandler(task.id)}
             />
           </ListItemIcon>
           <ListItemText primary={task.text} />
@@ -191,50 +160,9 @@ function App() {
             </IconButton>
           </ListItemSecondaryAction>
         </ListItem>
-        <Divider light/>
         </div>
       ));
   };
-
-  // const CompletedTasks = () => {
-  //   return todoList
-  //     .filter((task) => task.completed === true)
-  //     .sort((a, b) => b.date - a.date)
-  //     .map((task) => (
-  //       <ExpansionPanel>
-  //         <ExpansionPanelSummary
-  //           expandIcon={<ExpandMoreIcon />}
-  //           aria-label="Expand"
-  //           aria-controls="additional-actions1-content"
-  //           id="additional-actions1-header"
-  //         >
-  //           <FormControlLabel
-  //             aria-label="Acknowledge"
-  //             onClick={(event) => event.stopPropagation()}
-  //             onFocus={(event) => event.stopPropagation()}
-  //             control={
-  //               <Checkbox
-  //                 edge="start"
-  //                 checked={task.completed}
-  //                 onChange={taskDone}
-  //                 name={task.id}
-  //               />
-  //             }
-  //             label={task.text}
-  //           />
-  //         </ExpansionPanelSummary>
-  //         <ExpansionPanelDetails>
-  //           {/* <Typography color="textSecondary">{task.note}</Typography> */}
-  //           <TextField fullWidth
-  //         id="outlined-helperText"
-  //         label="Note"
-  //         value={task.note}
-  //         variant="outlined"
-  //       />
-  //         </ExpansionPanelDetails>
-  //       </ExpansionPanel>
-  //     ));
-  // };
 
   const ActiveCounter = () => {
     const completedAmount = todoList.filter((todo) => todo.completed === false)

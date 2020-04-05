@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
@@ -11,7 +11,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 
 
 
-const ActiveTasks = ({todoList, setTodoList}) => {
+const CompletedTasks = ({todoList, setTodoList}) => {
     const deleteTask = (id, e) => {
       e.preventDefault();
       let newList = [...todoList];
@@ -28,11 +28,11 @@ const ActiveTasks = ({todoList, setTodoList}) => {
       setTodoList(newList);
     };
     return todoList
-      .filter((task) => task.completed === false)
+      .filter((task) => task.completed === true)
       .sort((a, b) => b.date - a.date)
       .map((task, index) => (
         <div key={task.id}>
-          <ListItem key={task.id} dense button>
+          <ListItem dense button>
             <ListItemIcon>
               <Checkbox
                 edge="start"
@@ -56,5 +56,4 @@ const ActiveTasks = ({todoList, setTodoList}) => {
         </div>
       ));
   };
-
-  export default ActiveTasks;
+  export default CompletedTasks;

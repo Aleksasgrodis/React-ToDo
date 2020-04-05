@@ -23,8 +23,8 @@ import { Paper } from "@material-ui/core";
 // import NewTaskComponent from "./components/NewTaskComponent";
 import ActiveCounter from "./components/ActiveCounter"
 import CompletedCounter from "./components/CompletedCounter"
-// import ActiveTasks from "./components/ActiveTasks"
-// import CompletedTasks from "./components/CompletedTasks"
+import ActiveTasks from "./components/ActiveTasks"
+import CompletedTasks from "./components/CompletedTasks"
 
 function App() {
   const [todoList, setTodoList] = useState([
@@ -65,84 +65,7 @@ function App() {
 
   const classes = useStyles();
 
-  const deleteTask = (id, e) => {
-    e.preventDefault();
-    let newList = [...todoList];
-    let toberemoved = newList.map((task) => task.id).indexOf(id);
-    newList.splice(toberemoved, 1);
-    setTodoList(newList);
-  };
-
-  const checkboxHandler = (id) => {
-    let newList = [...todoList];
-    let indexOfTarget = newList.map((task) => task.id).indexOf(id);
-    newList[indexOfTarget].completed = !newList[indexOfTarget].completed;
-    newList[indexOfTarget].date = new Date();
-    setTodoList(newList);
-  };
-
-  const ActiveTasks = () => {
-    return todoList
-      .filter((task) => task.completed === false)
-      .sort((a, b) => b.date - a.date)
-      .map((task, index) => (
-        <div key={task.id}>
-          <ListItem key={task.id} dense button>
-            <ListItemIcon>
-              <Checkbox
-                edge="start"
-                checked={task.completed}
-                onChange={() => checkboxHandler(task.id)}
-              />
-            </ListItemIcon>
-            <ListItemText primary={task.text} />
-            <ListItemSecondaryAction>
-              <IconButton
-                edge="end"
-                aria-label="delete"
-                onClick={(e) => {
-                  return deleteTask(task.id, e);
-                }}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        </div>
-      ));
-  };
-
   
-  const CompletedTasks = () => {
-    return todoList
-      .filter((task) => task.completed === true)
-      .sort((a, b) => b.date - a.date)
-      .map((task, index) => (
-        <div key={task.id}>
-          <ListItem dense button>
-            <ListItemIcon>
-              <Checkbox
-                edge="start"
-                checked={task.completed}
-                onChange={() => checkboxHandler(task.id)}
-              />
-            </ListItemIcon>
-            <ListItemText primary={task.text} />
-            <ListItemSecondaryAction>
-              <IconButton
-                edge="end"
-                aria-label="delete"
-                onClick={(e) => {
-                  return deleteTask(task.id, e);
-                }}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        </div>
-      ));
-  };
 
   const NewTaskComponent = () => {
     const [newTodo, setNewTodo] = useState("");
@@ -200,47 +123,6 @@ function App() {
     );
   };
 
-  // const ActiveCounter = () => {
-  //   const completedAmount = todoList.filter((todo) => todo.completed === false)
-  //     .length;
-  //   if (completedAmount === 1) {
-  //     return (
-  //       <Typography variant="h6" gutterBottom>
-  //         <Box textAlign="left" m={1}>
-  //           {completedAmount} active task remains.
-  //         </Box>
-  //       </Typography>
-  //     );
-  //   }
-  //   return (
-  //     <Typography variant="h6" gutterBottom>
-  //       <Box textAlign="left" m={1}>
-  //         {completedAmount} active tasks remain.
-  //       </Box>
-  //     </Typography>
-  //   );
-  // };
-
-  // const CompletedCounter = () => {
-  //   const completedAmount = todoList.filter((todo) => todo.completed === true)
-  //     .length;
-  //   if (completedAmount === 1) {
-  //     return (
-  //       <Typography variant="h6" gutterBottom>
-  //         <Box textAlign="left" m={1}>
-  //           {completedAmount} task completed
-  //         </Box>
-  //       </Typography>
-  //     );
-  //   }
-  //   return (
-  //     <Typography variant="h6" gutterBottom>
-  //       <Box textAlign="left" m={1}>
-  //         {completedAmount} tasks completed.
-  //       </Box>
-  //     </Typography>
-  //   );
-  // };
 
   return (
     <div className="App">
@@ -253,13 +135,13 @@ function App() {
           <Paper elevation={3} style={{ margin: 16, padding: 4 }}>
             <ActiveCounter todoList={todoList}/>
             <List className={classes.root}>
-              <ActiveTasks/>
+              <ActiveTasks todoList={todoList} setTodoList={setTodoList}/>
             </List>
           </Paper>
           <Paper elevation={3} style={{ margin: 16, padding: 4 }}>
             <List className={classes.root}>
               <CompletedCounter todoList={todoList}/>
-              <CompletedTasks />
+              <CompletedTasks todoList={todoList} setTodoList={setTodoList}/>
             </List>
           </Paper>
         </section>

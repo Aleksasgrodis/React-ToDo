@@ -20,7 +20,11 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 
 import { Paper } from "@material-ui/core";
-// import Todos from "./components/Todos"
+// import NewTaskComponent from "./components/NewTaskComponent";
+import ActiveCounter from "./components/ActiveCounter"
+import CompletedCounter from "./components/CompletedCounter"
+// import ActiveTasks from "./components/ActiveTasks"
+// import CompletedTasks from "./components/CompletedTasks"
 
 function App() {
   const [todoList, setTodoList] = useState([
@@ -43,9 +47,9 @@ function App() {
     { id: 5, text: "Social Distance", completed: true, date: new Date(0) },
     {
       id: 6,
-      text: "Buy private jet",
+      text: "Hide evidence from the police",
       completed: true,
-      note: "the very expensive one",
+      note: "you know what i'm talking about",
       date: new Date(0),
     },
   ]);
@@ -60,8 +64,6 @@ function App() {
   }));
 
   const classes = useStyles();
-
- 
 
   const deleteTask = (id, e) => {
     e.preventDefault();
@@ -78,8 +80,6 @@ function App() {
     newList[indexOfTarget].date = new Date();
     setTodoList(newList);
   };
-
-  
 
   const ActiveTasks = () => {
     return todoList
@@ -111,6 +111,8 @@ function App() {
         </div>
       ));
   };
+
+  
   const CompletedTasks = () => {
     return todoList
       .filter((task) => task.completed === true)
@@ -143,25 +145,25 @@ function App() {
   };
 
   const NewTaskComponent = () => {
-  const [newTodo, setNewTodo] = useState("");
-  const addTodo = (event) => {
-    event.preventDefault();
-    if (newTodo.length !== 0) {
-      const newTodos = {
-        text: newTodo,
-        completed: false,
-        id: Date.now(),
-        date: new Date(),
-      };
-      setTodoList(todoList.concat(newTodos));
-      setNewTodo("");
-    } else {
-      alert("Task input field may not be empty!");
-    }
-  };
-  const onChangeHandler = (event) => {
-    setNewTodo(event.target.value);
-  };
+    const [newTodo, setNewTodo] = useState("");
+    const addTodo = (event) => {
+      event.preventDefault();
+      if (newTodo.length !== 0) {
+        const newTodos = {
+          text: newTodo,
+          completed: false,
+          id: Date.now(),
+          date: new Date(),
+        };
+        setTodoList(todoList.concat(newTodos));
+        setNewTodo("");
+      } else {
+        alert("Task input field may not be empty!");
+      }
+    };
+    const onChangeHandler = (event) => {
+      setNewTodo(event.target.value);
+    };
 
     return (
       <form onSubmit={addTodo}>
@@ -198,47 +200,47 @@ function App() {
     );
   };
 
-  const ActiveCounter = () => {
-    const completedAmount = todoList.filter((todo) => todo.completed === false)
-      .length;
-    if (completedAmount === 1) {
-      return (
-        <Typography variant="h6" gutterBottom>
-          <Box textAlign="left" m={1}>
-            {completedAmount} active task remains.
-          </Box>
-        </Typography>
-      );
-    }
-    return (
-      <Typography variant="h6" gutterBottom>
-        <Box textAlign="left" m={1}>
-          {completedAmount} active tasks remain.
-        </Box>
-      </Typography>
-    );
-  };
+  // const ActiveCounter = () => {
+  //   const completedAmount = todoList.filter((todo) => todo.completed === false)
+  //     .length;
+  //   if (completedAmount === 1) {
+  //     return (
+  //       <Typography variant="h6" gutterBottom>
+  //         <Box textAlign="left" m={1}>
+  //           {completedAmount} active task remains.
+  //         </Box>
+  //       </Typography>
+  //     );
+  //   }
+  //   return (
+  //     <Typography variant="h6" gutterBottom>
+  //       <Box textAlign="left" m={1}>
+  //         {completedAmount} active tasks remain.
+  //       </Box>
+  //     </Typography>
+  //   );
+  // };
 
-  const CompletedCounter = () => {
-    const completedAmount = todoList.filter((todo) => todo.completed === true)
-      .length;
-    if (completedAmount === 1) {
-      return (
-        <Typography variant="h6" gutterBottom>
-          <Box textAlign="left" m={1}>
-            {completedAmount} task completed
-          </Box>
-        </Typography>
-      );
-    }
-    return (
-      <Typography variant="h6" gutterBottom>
-        <Box textAlign="left" m={1}>
-          {completedAmount} tasks completed.
-        </Box>
-      </Typography>
-    );
-  };
+  // const CompletedCounter = () => {
+  //   const completedAmount = todoList.filter((todo) => todo.completed === true)
+  //     .length;
+  //   if (completedAmount === 1) {
+  //     return (
+  //       <Typography variant="h6" gutterBottom>
+  //         <Box textAlign="left" m={1}>
+  //           {completedAmount} task completed
+  //         </Box>
+  //       </Typography>
+  //     );
+  //   }
+  //   return (
+  //     <Typography variant="h6" gutterBottom>
+  //       <Box textAlign="left" m={1}>
+  //         {completedAmount} tasks completed.
+  //       </Box>
+  //     </Typography>
+  //   );
+  // };
 
   return (
     <div className="App">
@@ -246,17 +248,17 @@ function App() {
         <h1>Amazing(ly terrible) Todo List</h1>
 
         <section className="todo-wrapper">
-          <NewTaskComponent /> 
+          <NewTaskComponent />
 
           <Paper elevation={3} style={{ margin: 16, padding: 4 }}>
-            <ActiveCounter />
+            <ActiveCounter todoList={todoList}/>
             <List className={classes.root}>
-              <ActiveTasks />
+              <ActiveTasks/>
             </List>
           </Paper>
           <Paper elevation={3} style={{ margin: 16, padding: 4 }}>
             <List className={classes.root}>
-              <CompletedCounter />
+              <CompletedCounter todoList={todoList}/>
               <CompletedTasks />
             </List>
           </Paper>

@@ -28,6 +28,8 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import { Paper } from "@material-ui/core";
+// import Todos from "./components/Todos"
+
 
 function App() {
   const [todoList, setTodoList] = useState([
@@ -53,8 +55,8 @@ function App() {
       text: "Buy private jet",
       completed: true,
       note: "the very expensive one",
-      date: new Date(0),
-    },
+      date: new Date(0)
+    }
   ]);
 
   const useStyles = makeStyles((theme) => ({
@@ -76,7 +78,7 @@ function App() {
       const newTodos = {
         text: newTodo,
         completed: false,
-        id: todoList.length,
+        id: Date.now(),
         date: new Date(),
       };
       setTodoList(todoList.concat(newTodos));
@@ -96,8 +98,10 @@ function App() {
     const taskDone = (id, event) => {
       event.preventDefault();
       let newList = [...todoList];
-      newList[id].completed = event.target.checked;
-      newList[id].date = new Date();
+      let indexOfTarget = newList.map(task => task.id).indexOf(id)
+      // console.log(`id is ${id} and index of target is ${indexOfTarget}`)
+      newList[indexOfTarget].completed = event.target.checked;
+      newList[indexOfTarget].date = new Date();
       setTodoList(newList);
     };
 
@@ -117,7 +121,7 @@ function App() {
           </ListItemIcon>
           <ListItemText primary={task.text} />
           <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="delete">
+            <IconButton edge="end" aria-label="delete" onClick={(e) => { return deleteTask(task.id, e);}}>
               <DeleteIcon />
             </IconButton>
           </ListItemSecondaryAction>
@@ -145,12 +149,23 @@ function App() {
   //       </li>
   //     ));
   // };
+
+  const deleteTask = (id, e) => {
+    e.preventDefault();
+    let newList = [...todoList];
+    let toberemoved = newList.map(task => task.id).indexOf(id);
+    newList.splice(toberemoved, 1);
+    setTodoList(newList);
+  }
+
+
   const CompletedTasks = () => {
     const taskUndone = (id, event) => {
       event.preventDefault();
       let newList = [...todoList];
-      newList[id].completed = event.target.checked;
-      newList[id].date = new Date();
+      let indexOfTarget = newList.map(task => task.id).indexOf(id)
+      newList[indexOfTarget].completed = event.target.checked;
+      newList[indexOfTarget].date = new Date();
       setTodoList(newList);
     };
 
@@ -171,7 +186,7 @@ function App() {
           </ListItemIcon>
           <ListItemText primary={task.text} />
           <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="delete">
+            <IconButton edge="end" aria-label="delete" onClick={(e) => { return deleteTask(task.id, e);}}>
               <DeleteIcon />
             </IconButton>
           </ListItemSecondaryAction>
@@ -273,6 +288,7 @@ function App() {
         <h1>Amazing(ly terrible) Todo List</h1>
 
         <section className="todo-wrapper">
+        
           <form onSubmit={addTodo}>
             <div className="input-wrapper">
               <Paper elevation={3} style={{ margin: 16, padding: 16 }}>
@@ -302,6 +318,7 @@ function App() {
                   </Grid>
                 </Grid>
               </Paper>
+              
             </div>
 
             <div className="todo-list">
@@ -317,7 +334,9 @@ function App() {
               </List>
             </div>
           </form>
+          
         </section>
+        
       </header>
     </div>
   );

@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import logo from "./logo.svg";
 import "./App.css";
 import Button from "@material-ui/core/Button";
-import AddBoxOutlinedIcon from "@material-ui/icons/AddBoxOutlined";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import SaveIcon from "@material-ui/icons/Save";
 import AddIcon from "@material-ui/icons/Add";
 import TextField from "@material-ui/core/TextField";
 import List from "@material-ui/core/List";
@@ -16,20 +13,14 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
-import CommentIcon from "@material-ui/icons/Comment";
-import Divider from "@material-ui/core/Divider";
+
 import Typography from "@material-ui/core/Typography";
 import { typography } from "@material-ui/system";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+
 import { Paper } from "@material-ui/core";
 // import Todos from "./components/Todos"
-
 
 function App() {
   const [todoList, setTodoList] = useState([
@@ -55,9 +46,10 @@ function App() {
       text: "Buy private jet",
       completed: true,
       note: "the very expensive one",
-      date: new Date(0)
-    }
+      date: new Date(0),
+    },
   ]);
+  const [newTodo, setNewTodo] = useState("");
 
   const useStyles = makeStyles((theme) => ({
     margin: {
@@ -71,6 +63,28 @@ function App() {
   const classes = useStyles();
 
   
+
+  const onChangeHandler = (event) => {
+    setNewTodo(event.target.value);
+  };
+
+  
+
+  const deleteTask = (id, e) => {
+    e.preventDefault();
+    let newList = [...todoList];
+    let toberemoved = newList.map((task) => task.id).indexOf(id);
+    newList.splice(toberemoved, 1);
+    setTodoList(newList);
+  };
+
+  const checkboxHandler = (id) => {
+    let newList = [...todoList];
+    let indexOfTarget = newList.map((task) => task.id).indexOf(id);
+    newList[indexOfTarget].completed = !newList[indexOfTarget].completed;
+    newList[indexOfTarget].date = new Date();
+    setTodoList(newList);
+  };
 
   const addTodo = (event) => {
     event.preventDefault();
@@ -88,81 +102,70 @@ function App() {
     }
   };
 
-  const finishedTodos = todoList.filter((todo) => todo.completed === true);
-
-  const onChangeHandler = (event) => {
-    setNewTodo(event.target.value);
-  };
-
-  const checkboxHandler = (id) => {
-    let newList = [...todoList];
-    let indexOfTarget = newList.map(task => task.id).indexOf(id)
-    newList[indexOfTarget].completed = !newList[indexOfTarget].completed;
-    newList[indexOfTarget].date = new Date();
-    setTodoList(newList);
-  };
-
   const ActiveTasks = () => {
-    
     return todoList
       .filter((task) => task.completed === false)
       .sort((a, b) => b.date - a.date)
       .map((task, index) => (
         <div key={task.id}>
-        <ListItem key={task.id} dense button>
-          <ListItemIcon>
-            <Checkbox
-              edge="start"
-              checked={task.completed}
-              onChange={() => checkboxHandler(task.id)}
-            />
-          </ListItemIcon>
-          <ListItemText primary={task.text} />
-          <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="delete" onClick={(e) => { return deleteTask(task.id, e);}}>
-              <DeleteIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
+          <ListItem key={task.id} dense button>
+            <ListItemIcon>
+              <Checkbox
+                edge="start"
+                checked={task.completed}
+                onChange={() => checkboxHandler(task.id)}
+              />
+            </ListItemIcon>
+            <ListItemText primary={task.text} />
+            <ListItemSecondaryAction>
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                onClick={(e) => {
+                  return deleteTask(task.id, e);
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
         </div>
       ));
   };
-
-
-  const deleteTask = (id, e) => {
-    e.preventDefault();
-    let newList = [...todoList];
-    let toberemoved = newList.map(task => task.id).indexOf(id);
-    newList.splice(toberemoved, 1);
-    setTodoList(newList);
-  }
-
-
   const CompletedTasks = () => {
-
     return todoList
       .filter((task) => task.completed === true)
       .sort((a, b) => b.date - a.date)
       .map((task, index) => (
         <div key={task.id}>
-        <ListItem dense button>
-          <ListItemIcon>
-            <Checkbox
-              edge="start"
-              checked={task.completed}
-              onChange={() => checkboxHandler(task.id)}
-            />
-          </ListItemIcon>
-          <ListItemText primary={task.text} />
-          <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="delete" onClick={(e) => { return deleteTask(task.id, e);}}>
-              <DeleteIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
+          <ListItem dense button>
+            <ListItemIcon>
+              <Checkbox
+                edge="start"
+                checked={task.completed}
+                onChange={() => checkboxHandler(task.id)}
+              />
+            </ListItemIcon>
+            <ListItemText primary={task.text} />
+            <ListItemSecondaryAction>
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                onClick={(e) => {
+                  return deleteTask(task.id, e);
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
         </div>
       ));
   };
+
+  const NewTaskComponent = () => {
+    
+  }
 
   const ActiveCounter = () => {
     const completedAmount = todoList.filter((todo) => todo.completed === false)
@@ -197,7 +200,6 @@ function App() {
         </Typography>
       );
     }
-
     return (
       <Typography variant="h6" gutterBottom>
         <Box textAlign="left" m={1}>
@@ -207,8 +209,7 @@ function App() {
     );
   };
 
-  const [newTodo, setNewTodo] = useState("");
-
+  
 
   return (
     <div className="App">
@@ -216,7 +217,6 @@ function App() {
         <h1>Amazing(ly terrible) Todo List</h1>
 
         <section className="todo-wrapper">
-        
           <form onSubmit={addTodo}>
             <div className="input-wrapper">
               <Paper elevation={3} style={{ margin: 16, padding: 16 }}>
@@ -246,25 +246,22 @@ function App() {
                   </Grid>
                 </Grid>
               </Paper>
-              
             </div>
-
-            <div className="todo-list">
+            </form>
+            <Paper elevation={3} style={{ margin: 16, padding: 4 }}>
               <ActiveCounter />
               <List className={classes.root}>
                 <ActiveTasks />
               </List>
-            </div>
-            <div className="todo-list">
+            </Paper>
+            <Paper elevation={3} style={{ margin: 16, padding: 4 }}>
               <List className={classes.root}>
                 <CompletedCounter />
                 <CompletedTasks />
               </List>
-            </div>
-          </form>
+            </Paper>
           
         </section>
-        
       </header>
     </div>
   );

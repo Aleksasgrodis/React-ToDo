@@ -49,7 +49,6 @@ function App() {
       date: new Date(0),
     },
   ]);
-  const [newTodo, setNewTodo] = useState("");
 
   const useStyles = makeStyles((theme) => ({
     margin: {
@@ -62,13 +61,7 @@ function App() {
 
   const classes = useStyles();
 
-  
-
-  const onChangeHandler = (event) => {
-    setNewTodo(event.target.value);
-  };
-
-  
+ 
 
   const deleteTask = (id, e) => {
     e.preventDefault();
@@ -86,21 +79,7 @@ function App() {
     setTodoList(newList);
   };
 
-  const addTodo = (event) => {
-    event.preventDefault();
-    if (newTodo.length !== 0) {
-      const newTodos = {
-        text: newTodo,
-        completed: false,
-        id: Date.now(),
-        date: new Date(),
-      };
-      setTodoList(todoList.concat(newTodos));
-      setNewTodo("");
-    } else {
-      alert("Task input field may not be empty!");
-    }
-  };
+  
 
   const ActiveTasks = () => {
     return todoList
@@ -164,8 +143,60 @@ function App() {
   };
 
   const NewTaskComponent = () => {
-    
-  }
+  const [newTodo, setNewTodo] = useState("");
+  const addTodo = (event) => {
+    event.preventDefault();
+    if (newTodo.length !== 0) {
+      const newTodos = {
+        text: newTodo,
+        completed: false,
+        id: Date.now(),
+        date: new Date(),
+      };
+      setTodoList(todoList.concat(newTodos));
+      setNewTodo("");
+    } else {
+      alert("Task input field may not be empty!");
+    }
+  };
+  const onChangeHandler = (event) => {
+    setNewTodo(event.target.value);
+  };
+
+    return (
+      <form onSubmit={addTodo}>
+        <div className="input-wrapper">
+          <Paper elevation={3} style={{ margin: 16, padding: 16 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={10}>
+                <TextField
+                  id="outlined-basic"
+                  label="Type your task here..."
+                  variant="outlined"
+                  value={newTodo}
+                  onChange={(e) => onChangeHandler(e)}
+                  fullWidth
+                  size="small"
+                  color="secondary"
+                />
+              </Grid>
+              <Grid item xs={2}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  type="submit"
+                  size="small"
+                  className={classes.button}
+                >
+                  <AddIcon style={{ fontSize: 30 }} />
+                </Button>
+              </Grid>
+            </Grid>
+          </Paper>
+        </div>
+      </form>
+    );
+  };
 
   const ActiveCounter = () => {
     const completedAmount = todoList.filter((todo) => todo.completed === false)
@@ -209,58 +240,26 @@ function App() {
     );
   };
 
-  
-
   return (
     <div className="App">
       <header className="App-header">
         <h1>Amazing(ly terrible) Todo List</h1>
 
         <section className="todo-wrapper">
-          <form onSubmit={addTodo}>
-            <div className="input-wrapper">
-              <Paper elevation={3} style={{ margin: 16, padding: 16 }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={10}>
-                    <TextField
-                      id="outlined-basic"
-                      label="Type your task here..."
-                      variant="outlined"
-                      value={newTodo}
-                      onChange={onChangeHandler}
-                      fullWidth
-                      size="small"
-                      color="secondary"
-                    />
-                  </Grid>
-                  <Grid item xs={2}>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      type="submit"
-                      size="small"
-                      className={classes.button}
-                    >
-                      <AddIcon style={{ fontSize: 30 }} />
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Paper>
-            </div>
-            </form>
-            <Paper elevation={3} style={{ margin: 16, padding: 4 }}>
-              <ActiveCounter />
-              <List className={classes.root}>
-                <ActiveTasks />
-              </List>
-            </Paper>
-            <Paper elevation={3} style={{ margin: 16, padding: 4 }}>
-              <List className={classes.root}>
-                <CompletedCounter />
-                <CompletedTasks />
-              </List>
-            </Paper>
-          
+          <NewTaskComponent /> 
+
+          <Paper elevation={3} style={{ margin: 16, padding: 4 }}>
+            <ActiveCounter />
+            <List className={classes.root}>
+              <ActiveTasks />
+            </List>
+          </Paper>
+          <Paper elevation={3} style={{ margin: 16, padding: 4 }}>
+            <List className={classes.root}>
+              <CompletedCounter />
+              <CompletedTasks />
+            </List>
+          </Paper>
         </section>
       </header>
     </div>

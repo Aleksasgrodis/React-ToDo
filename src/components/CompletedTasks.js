@@ -8,6 +8,8 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
+import Divider from '@material-ui/core/Divider';
+
 
 
 
@@ -53,6 +55,7 @@ const CompletedTasks = ({todoList, setTodoList}) => {
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
+          <Divider variant="inset" light />
         </div>
       ));
   };

@@ -26,7 +26,8 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Button from '@material-ui/core/Button';
 
 
-const TaskDetails = () => {
+const TaskDetails = ({todoList, taskID}) => {
+
   const useStyles = makeStyles((theme) => ({
     margin: {
       margin: theme.spacing(1),
@@ -62,6 +63,10 @@ const TaskDetails = () => {
   };
   const bull = <span className={classes.bullet}>•</span>;
 
+  
+   const selectedTask = todoList.filter((task) => task.id === taskID);
+    
+
   return (
     <Grid item xs={4}>
       <Paper className={classes.paper} style={{ padding: 16 }}>
@@ -73,22 +78,20 @@ const TaskDetails = () => {
                 color="textSecondary"
                 gutterBottom
               >
-                Word of the Day
+                Created on: {selectedTask[0].date.toLocaleString()}
               </Typography>
               <Typography variant="h5" component="h2">
-                be{bull}nev{bull}o{bull}lent
+              {selectedTask[0].text}
               </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                adjective
               </Typography>
               <Typography variant="body2" component="p">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
+
+                {selectedTask[0].note}
               </Typography>
             </CardContent>
             <CardActions>
-              <Button size="small">Learn More</Button>
+              <Button size="small">Delete Task</Button>
             </CardActions>
           </Card>
         </Box>

@@ -24,21 +24,22 @@ function App() {
       note: "Remove gum from under the desk",
       date: new Date(0),
     },
-    { id: 1, text: "Sell organs", completed: false, date: new Date(0) },
+    { id: 1, text: "Sell organs", completed: false, date: new Date(0), note: "You need the money to purchase more dust cleaner" },
     {
       id: 2,
       text: "Delete browsing history",
       completed: false,
       date: new Date(0),
+      note: "Make sure you delete the cookies too!"
     },
-    { id: 3, text: "Buy toilet paper", completed: true, date: new Date(0) },
+    { id: 3, text: "Buy toilet paper", completed: true, date: new Date(0), note: "Last time you checked, the stores were sold out!" },
     { id: 4, text: "Inhale dust cleaner", completed: true, date: new Date(0) },
-    { id: 5, text: "Social Distance", completed: true, date: new Date(0) },
+    { id: 5, text: "Social Distance", completed: true, date: new Date(0), note: "Make sure to keep at least 1.5m distance!" },
     {
       id: 6,
-      text: "Hide evidence from the police",
+      text: "Hide body from the police",
       completed: true,
-      note: "you know what i'm talking about",
+      note: "Also wipe down the appartment of any fingerprints",
       date: new Date(0),
     },
   ]);
@@ -70,65 +71,15 @@ function App() {
   }));
 
   const classes = useStyles();
-  // const [open, setOpen] = React.useState(true);
 
-  // const handleClick = () => {
-  //   setOpen(!open);
-  // };
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  // const TaskNav = () => {
-  //   return <Grid item xs={3}>
-  //   <Paper className={classes.paper} style={{ padding: 16 }}>
-  //     <Box component="div" textOverflow="ellipsis">
-  //       <List
-  //         component="nav"
-  //         aria-labelledby="nested-list-subheader"
-  //         subheader={
-  //           <ListSubheader component="div" id="nested-list-subheader">
-  //             Navigation
-  //           </ListSubheader>
-  //         }
-  //         className={classes.root}
-  //       >
-  //         <ListItem button onClick={handleClick}>
-  //           <ListItemIcon>
-  //             <InboxIcon />
-  //           </ListItemIcon>
-  //           <ListItemText primary="Inbox" />
-  //           {open ? <ExpandLess /> : <ExpandMore />}
-  //         </ListItem>
-  //         <Collapse in={open} timeout="auto" unmountOnExit>
-  //           <List component="div" disablePadding>
-  //             <ListItem button className={classes.nested}>
-  //               <ListItemIcon>
-  //                 <StarBorder />
-  //               </ListItemIcon>
-  //               <ListItemText primary="Starred" />
-  //             </ListItem>
-  //           </List>
-  //         </Collapse>
-  //         <ListItem button>
-  //           <ListItemIcon>
-  //             <SendIcon />
-  //           </ListItemIcon>
-  //           <ListItemText primary="Today" />
-  //         </ListItem>
-  //         <ListItem button>
-  //           <ListItemIcon>
-  //             <DraftsIcon />
-  //           </ListItemIcon>
-  //           <ListItemText primary="Project X" />
-  //         </ListItem>
-  //       </List>
-  //     </Box>
-  //   </Paper>
-  // </Grid>
-  // }
+  const [focussedTask, setFocussedTask] = useState(6)
+
 
   return (
     <div className="App">
@@ -139,53 +90,8 @@ function App() {
 
         <Container maxWidth="lg">
           <Grid container spacing={1}>
-            <TaskNav />
-            {/* <Grid item xs={3}>
-              <Paper className={classes.paper} style={{ padding: 16 }}>
-                <Box component="div" textOverflow="ellipsis">
-                  <List
-                    component="nav"
-                    aria-labelledby="nested-list-subheader"
-                    subheader={
-                      <ListSubheader component="div" id="nested-list-subheader">
-                        Navigation
-                      </ListSubheader>
-                    }
-                    className={classes.root}
-                  >
-                    <ListItem button onClick={handleClick}>
-                      <ListItemIcon>
-                        <InboxIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Inbox" />
-                      {open ? <ExpandLess /> : <ExpandMore />}
-                    </ListItem>
-                    <Collapse in={open} timeout="auto" unmountOnExit>
-                      <List component="div" disablePadding>
-                        <ListItem button className={classes.nested}>
-                          <ListItemIcon>
-                            <StarBorder />
-                          </ListItemIcon>
-                          <ListItemText primary="Starred" />
-                        </ListItem>
-                      </List>
-                    </Collapse>
-                    <ListItem button>
-                      <ListItemIcon>
-                        <SendIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Today" />
-                    </ListItem>
-                    <ListItem button>
-                      <ListItemIcon>
-                        <DraftsIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Project X" />
-                    </ListItem>
-                  </List>
-                </Box>
-              </Paper>
-            </Grid> */}
+            <TaskNav/>
+
             <Grid item xs={5}>
               <Paper elevation={1} style={{ padding: 4 }}>
                 <NewTaskComponent
@@ -199,6 +105,7 @@ function App() {
                     <ActiveTasks
                       todoList={todoList}
                       setTodoList={setTodoList}
+                      setFocussedTask={setFocussedTask}
                     />
                   </List>
                 </Paper>
@@ -208,12 +115,13 @@ function App() {
                     <CompletedTasks
                       todoList={todoList}
                       setTodoList={setTodoList}
+                      setFocussedTask={setFocussedTask}
                     />
                   </List>
                 </Paper>
               </Paper>
             </Grid>
-            <TaskDetails/>
+            <TaskDetails todoList={todoList} taskID={focussedTask}/>
           </Grid>
         </Container>
       </header>

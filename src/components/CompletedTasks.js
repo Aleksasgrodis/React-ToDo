@@ -13,7 +13,7 @@ import Divider from '@material-ui/core/Divider';
 
 
 
-const CompletedTasks = ({todoList, setTodoList}) => {
+const CompletedTasks = ({todoList, setTodoList, setFocussedTask}) => {
     const deleteTask = (id, e) => {
       e.preventDefault();
       let newList = [...todoList];
@@ -29,12 +29,16 @@ const CompletedTasks = ({todoList, setTodoList}) => {
       newList[indexOfTarget].date = new Date();
       setTodoList(newList);
     };
+
+    const onClickHandler =(id) => {
+    setFocussedTask(id)
+    }
     return todoList
       .filter((task) => task.completed === true)
       .sort((a, b) => b.date - a.date)
       .map((task, index) => (
         <div key={task.id}>
-          <ListItem dense button>
+          <ListItem dense button onClick={() => onClickHandler(task.id)}>
             <ListItemIcon>
               <Checkbox
                 edge="start"

@@ -31,6 +31,7 @@ const NewTaskComponent = ({todoList, setTodoList}) => {
           completed: false,
           id: Date.now(),
           date: new Date(),
+          note: ""
         };
         setTodoList(todoList.concat(newTodos));
         setNewTodo("");

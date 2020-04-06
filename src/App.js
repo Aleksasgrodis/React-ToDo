@@ -13,7 +13,8 @@ import CompletedTasks from "./components/CompletedTasks";
 import Container from "@material-ui/core/Container";
 import { red } from "@material-ui/core/colors";
 import TaskDetails from "./components/TaskDetails";
-import TaskNav from "./components/TaskNav"
+import TaskNav from "./components/TaskNav";
+
 
 function App() {
   const [todoList, setTodoList] = useState([
@@ -24,17 +25,42 @@ function App() {
       note: "Remove gum from under the desk",
       date: new Date(0),
     },
-    { id: 1, text: "Sell organs", completed: false, date: new Date(0), note: "You need the money to purchase more dust cleaner" },
+    {
+      id: 1,
+      text: "Sell organs",
+      completed: false,
+      date: new Date(0),
+      note: "You need the money to purchase more dust cleaner",
+    },
     {
       id: 2,
       text: "Delete browsing history",
       completed: false,
       date: new Date(0),
-      note: "Make sure you delete the cookies too!"
+      note: "Make sure you delete the cookies too!",
     },
-    { id: 3, text: "Buy toilet paper", completed: true, date: new Date(0), note: "Last time you checked, the stores were sold out!" },
-    { id: 4, text: "Inhale dust cleaner", completed: true, date: new Date(0) },
-    { id: 5, text: "Social Distance", completed: true, date: new Date(0), note: "Make sure to keep at least 1.5m distance!" },
+    {
+      id: 3,
+      text: "Buy toilet paper",
+      completed: true,
+      date: new Date(0),
+      note: "Last time you checked, the stores were sold out!",
+    },
+    {
+      id: 4,
+      text: "Inhale dust cleaner",
+      completed: true,
+      date: new Date(),
+      note:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    },
+    {
+      id: 5,
+      text: "Social Distance",
+      completed: true,
+      date: new Date(0),
+      note: "Make sure to keep at least 1.5m distance!",
+    },
     {
       id: 6,
       text: "Hide body from the police",
@@ -69,18 +95,8 @@ function App() {
       backgroundColor: red[500],
     },
   }));
-
   const classes = useStyles();
-
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
-  const [focussedTask, setFocussedTask] = useState(6)
-
-
+  const [focussedTask, setFocussedTask] = useState(6);
   return (
     <div className="App">
       <header className="App-header">
@@ -90,7 +106,7 @@ function App() {
 
         <Container maxWidth="lg">
           <Grid container spacing={1}>
-            <TaskNav/>
+            <TaskNav />
 
             <Grid item xs={5}>
               <Paper elevation={1} style={{ padding: 4 }}>
@@ -121,7 +137,7 @@ function App() {
                 </Paper>
               </Paper>
             </Grid>
-            <TaskDetails todoList={todoList} taskID={focussedTask}/>
+            <TaskDetails todoList={todoList} taskID={focussedTask} setTodoList={setTodoList}/>
           </Grid>
         </Container>
       </header>

@@ -45,7 +45,6 @@ const NewTaskComponent = ({todoList, setTodoList}) => {
 
     return (
       <form onSubmit={addTodo}>
-        {/* <div className="input-wrapper"> */}
           <Paper elevation={1} style={{ margin: 16, padding: 16 }}>
             <Grid container spacing={2}>
               <Grid item xs={10}>
@@ -73,7 +72,6 @@ const NewTaskComponent = ({todoList, setTodoList}) => {
               </Grid>
             </Grid>
           </Paper>
-        {/* </div> */}
       </form>
     );
   };

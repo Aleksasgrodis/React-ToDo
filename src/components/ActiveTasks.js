@@ -13,7 +13,7 @@ import Divider from '@material-ui/core/Divider';
 
 
 
-const ActiveTasks = ({todoList, setTodoList, setFocussedTask}) => {
+const ActiveTasks = ({todoList, setTodoList, setFocussedTask, focussedList}) => {
     const deleteTask = (id, e) => {
       e.preventDefault();
       let newList = [...todoList];
@@ -34,7 +34,7 @@ const ActiveTasks = ({todoList, setTodoList, setFocussedTask}) => {
       setFocussedTask(id)
       }
     return todoList
-      .filter((task) => task.completed === false)
+      .filter((task) => task.completed === false && task.project === focussedList)
       .sort((a, b) => b.date - a.date)
       .map((task, index) => (
         <div key={task.id}>

@@ -19,7 +19,7 @@ import { red } from "@material-ui/core/colors";
 import Divider from '@material-ui/core/Divider';
 
 
-const TaskNav = () => {
+const TaskNav = ({focussedList, setFocussedList}) => {
     const useStyles = makeStyles((theme) => ({
         margin: {
           margin: theme.spacing(1),
@@ -53,6 +53,9 @@ const TaskNav = () => {
       };
       const [open, setOpen] = React.useState(true);
 
+    const handleListClick = (listName) => {
+      setFocussedList(listName)
+    }
 
     return <Grid item xs={3}>
     <Paper className={classes.paper} style={{ padding: 16 }}>
@@ -77,7 +80,7 @@ const TaskNav = () => {
           
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
+              <ListItem button className={classes.nested} >
                 <ListItemIcon>
                   <StarBorder />
                 </ListItemIcon>
@@ -86,13 +89,13 @@ const TaskNav = () => {
             </List>
           </Collapse>
           <Divider variant="inset" light />
-          <ListItem button>
+          <ListItem button onClick={() => handleListClick("Uncategorized")}>
             <ListItemIcon>
               <SendIcon />
             </ListItemIcon>
-            <ListItemText primary="Today" />
+            <ListItemText primary="Uncategorized" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={() => handleListClick("Criminal Activities")}>
             <ListItemIcon>
               <DraftsIcon />
             </ListItemIcon>

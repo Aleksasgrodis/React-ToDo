@@ -156,7 +156,7 @@ function App() {
                 />
 
                 <Paper variant="outlined" style={{ margin: 16, padding: 4 }}>
-                  <ActiveCounter todoList={todoList} />
+                  <ActiveCounter todoList={todoList} focussedList={focussedList}/>
                   <List className={classes.root}>
                     <ActiveTasks
                       todoList={todoList}
@@ -167,7 +167,7 @@ function App() {
                   </List>
                 </Paper>
                 <Paper variant="outlined" style={{ margin: 16, padding: 4 }}>
-                  <CompletedCounter todoList={todoList} />
+                  <CompletedCounter todoList={todoList} focussedList={focussedList} />
                   <List className={classes.root}>
                     <CompletedTasks
                       todoList={todoList}

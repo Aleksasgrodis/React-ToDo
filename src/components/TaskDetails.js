@@ -10,11 +10,11 @@ import CardActions from "@material-ui/core/CardActions";
 import { red } from "@material-ui/core/colors";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 // import 'date-fns';
 
 // import DateFnsUtils from '@date-io/date-fns';
@@ -55,28 +55,52 @@ const TaskDetails = ({ todoList, setTodoList, taskID }) => {
   let selectedTask = selectedTaskOBJ[0];
 
   const onNoteChange = (event) => {
-    let newList = [...todoList]
-    let target = newList.map(task => task.id).indexOf(taskID)
-    newList[target].note = event.target.value
-    setTodoList(newList)
-  }
-  const [age, setAge] = React.useState('');
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
+    let newList = [...todoList];
+    let target = newList.map((task) => task.id).indexOf(taskID);
+    newList[target].note = event.target.value;
+    setTodoList(newList);
+    
   };
-// Disabled inputfield, enabled on click, will add functionality later.
-//   const [disabledState, setDisabledState] = useState(true)
 
-//   const changeDisabledState = () => {
-//       setDisabledState(!disabledState)
-//   }
+  const handleProjectChange = (event) => {
+    let newList = [...todoList];
+    let target = newList.map((task) => task.id).indexOf(taskID);
+    newList[target].project = event.target.value;
+    setTodoList(newList);
 
-// const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+  };
+  // Disabled inputfield, enabled on click, will add functionality later.
+  //   const [disabledState, setDisabledState] = useState(true)
 
-//   const handleDateChange = (date) => {
-//     setSelectedDate(date);
-//   };
+  //   const changeDisabledState = () => {
+  //       setDisabledState(!disabledState)
+  //   }
+
+  // const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+
+  //   const handleDateChange = (date) => {
+  //     setSelectedDate(date);
+  //   };
+  const projectList = [...new Set(todoList.map(task => task.project))];
+
+
+
+  const ChangeProject = () => {
+    return (
+      <FormControl fullWidth className={classes.formControl}>
+        <InputLabel id="demo-simple-select-label">Project</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={selectedTask.project}
+          onChange={handleProjectChange}
+        >
+          {projectList.map(item => <MenuItem value={item}>{item}</MenuItem>)}
+        </Select>
+      </FormControl>
+    );
+  };
+
   return (
     <Grid item xs={4}>
       <Paper className={classes.paper} style={{ padding: 16 }}>
@@ -94,7 +118,14 @@ const TaskDetails = ({ todoList, setTodoList, taskID }) => {
               <Typography variant="h5" component="h2" align="left">
                 {selectedTask.text}
               </Typography>
-              <TextField id="standard-texarea" fullWidth label="Note" value={selectedTask.note}  multiline onChange={onNoteChange}/>
+              <TextField
+                id="standard-texarea"
+                fullWidth
+                label="Note"
+                value={selectedTask.note}
+                multiline
+                onChange={onNoteChange}
+              />
 
               {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
@@ -109,20 +140,20 @@ const TaskDetails = ({ todoList, setTodoList, taskID }) => {
           }}
         />    
         </MuiPickersUtilsProvider> */}
-          <FormControl fullWidth className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">Category</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-
+              {/* <FormControl fullWidth className={classes.formControl}>
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={age}
+                  onChange={handleProjectChange}
+                >
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
+                </Select>
+              </FormControl> */}
+              <ChangeProject />
             </CardContent>
             <CardActions>
               {/* <Button size="small" color="secondary" variant="outlined">
@@ -136,7 +167,6 @@ const TaskDetails = ({ todoList, setTodoList, taskID }) => {
               >
                 Edit
               </Button> */}
-              
             </CardActions>
           </Card>
         </Box>

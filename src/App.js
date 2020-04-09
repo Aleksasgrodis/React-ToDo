@@ -119,7 +119,7 @@ function App() {
       starred: true,
       project: "Programming"
     },{
-      id: 10,
+      id: 12,
       text: "Finish building it",
       completed: false,
       note: "",

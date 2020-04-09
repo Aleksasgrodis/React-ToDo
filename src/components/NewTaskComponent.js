@@ -10,7 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import { Paper } from "@material-ui/core";
 
 
-const NewTaskComponent = ({todoList, setTodoList}) => {
+const NewTaskComponent = ({todoList, setTodoList, focussedList}) => {
     const useStyles = makeStyles((theme) => ({
       margin: {
         margin: theme.spacing(1),
@@ -31,7 +31,8 @@ const NewTaskComponent = ({todoList, setTodoList}) => {
           completed: false,
           id: Date.now(),
           date: new Date(),
-          note: ""
+          note: "",
+          project: focussedList
         };
         setTodoList(todoList.concat(newTodos));
         setNewTodo("");

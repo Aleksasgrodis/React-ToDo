@@ -17,9 +17,10 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import StarBorder from "@material-ui/icons/StarBorder";
 import { red } from "@material-ui/core/colors";
 import Divider from '@material-ui/core/Divider';
+import TurnedInIcon from '@material-ui/icons/TurnedIn';
 
 
-const TaskNav = ({focussedList, setFocussedList}) => {
+const TaskNav = ({todoList, focussedList, setFocussedList}) => {
     const useStyles = makeStyles((theme) => ({
         margin: {
           margin: theme.spacing(1),
@@ -56,6 +57,16 @@ const TaskNav = ({focussedList, setFocussedList}) => {
     const handleListClick = (listName) => {
       setFocussedList(listName)
     }
+    // this is something new, learn about this
+    const navArray = [...new Set(todoList.map(task => task.project))];
+    const NavList = () => {
+      return navArray.map((item, index )=> <ListItem  key={index} button onClick={() => handleListClick(item)}>
+      <ListItemIcon>
+        <TurnedInIcon/>
+      </ListItemIcon>
+      <ListItemText primary={item} />
+    </ListItem>)
+    }
 
     return <Grid item xs={3}>
     <Paper className={classes.paper} style={{ padding: 16 }}>
@@ -69,39 +80,36 @@ const TaskNav = ({focussedList, setFocussedList}) => {
             </ListSubheader>
           }
           className={classes.root}
-        >
-          <ListItem button onClick={handleClick}>
+        > <NavList />
+          {/* <ListItem button onClick={() => handleListClick("Uncategorized")}>
             <ListItemIcon>
-              <InboxIcon />
+              <InboxIcon  color="secondary"/>
             </ListItemIcon>
             <ListItemText primary="Inbox" />
-            {open ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
+ 
               <ListItem button className={classes.nested} >
                 <ListItemIcon>
-                  <StarBorder />
+                  <StarBorder  color="secondary"/>
                 </ListItemIcon>
                 <ListItemText primary="Starred" />
               </ListItem>
-            </List>
-          </Collapse>
-          <Divider variant="inset" light />
-          <ListItem button onClick={() => handleListClick("Uncategorized")}>
+
+          <Divider variant="inset" light /> */}
+          {/* <ListItem button >
             <ListItemIcon>
-              <SendIcon />
+              <SendIcon/>
             </ListItemIcon>
             <ListItemText primary="Uncategorized" />
-          </ListItem>
-          <ListItem button onClick={() => handleListClick("Criminal Activities")}>
+          </ListItem> */}
+          {/* <ListItem button onClick={() => handleListClick("Criminal Activities")}>
             <ListItemIcon>
-              <DraftsIcon />
+              <TurnedInIcon/>
             </ListItemIcon>
-            <ListItemText primary="Project X" />
+            <ListItemText primary="Criminal Activities" />
           </ListItem>
-          <Divider variant="inset" light />
+          <Divider variant="inset" light /> */}
         </List>
       </Box>
     </Paper>

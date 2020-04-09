@@ -102,6 +102,30 @@ function App() {
       date: new Date(0),
       starred: true,
       project: "Criminal Activities"
+    },{
+      id: 10,
+      text: "Start working on a React todo list application",
+      completed: true,
+      note: "",
+      date: new Date(0),
+      starred: true,
+      project: "Programming"
+    },{
+      id: 11,
+      text: "Create a Github repo for it",
+      completed: true,
+      note: "",
+      date: new Date(0),
+      starred: true,
+      project: "Programming"
+    },{
+      id: 10,
+      text: "Finish building it",
+      completed: false,
+      note: "",
+      date: new Date(0),
+      starred: true,
+      project: "Programming"
     },
   ]);
 
@@ -146,13 +170,14 @@ function App() {
 
         <Container maxWidth="lg">
           <Grid container spacing={1}>
-            <TaskNav focussedList={focussedList} setFocussedList={setFocussedList}/>
+            <TaskNav focussedList={focussedList} setFocussedList={setFocussedList} todoList={todoList}/>
 
             <Grid item xs={5}>
               <Paper elevation={1} style={{ padding: 4 }}>
                 <NewTaskComponent
                   todoList={todoList}
                   setTodoList={setTodoList}
+                  focussedList={focussedList}
                 />
 
                 <Paper variant="outlined" style={{ margin: 16, padding: 4 }}>

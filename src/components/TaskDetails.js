@@ -15,14 +15,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-// import 'date-fns';
-
-// import DateFnsUtils from '@date-io/date-fns';
-// import {
-//   MuiPickersUtilsProvider,
-//   KeyboardTimePicker,
-//   KeyboardDatePicker,
-// } from '@material-ui/pickers';
 
 const TaskDetails = ({ todoList, setTodoList, taskID }) => {
   const useStyles = makeStyles((theme) => ({
@@ -75,21 +67,8 @@ const TaskDetails = ({ todoList, setTodoList, taskID }) => {
     setTodoList(newList);
 
   };
-  // Disabled inputfield, enabled on click, will add functionality later.
-  //   const [disabledState, setDisabledState] = useState(true)
 
-  //   const changeDisabledState = () => {
-  //       setDisabledState(!disabledState)
-  //   }
-
-  // const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
-
-  //   const handleDateChange = (date) => {
-  //     setSelectedDate(date);
-  //   };
   const projectList = [...new Set(todoList.map(task => task.project))];
-
-
 
   const ChangeProject = () => {
     return (
@@ -134,47 +113,10 @@ const TaskDetails = ({ todoList, setTodoList, taskID }) => {
                 onChange={onNoteChange}
                 variant="outlined"
               />
-
-              {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-          margin="normal"
-          id="date-picker-dialog"
-          label="Date picker dialog"
-          format="MM/dd/yyyy"
-          value={selectedDate}
-          onChange={handleDateChange}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />    
-        </MuiPickersUtilsProvider> */}
-              {/* <FormControl fullWidth className={classes.formControl}>
-                <InputLabel id="demo-simple-select-label">Category</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={age}
-                  onChange={handleProjectChange}
-                >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-              </FormControl> */}
               <ChangeProject />
             </CardContent>
             <CardActions>
-              {/* <Button size="small" color="secondary" variant="outlined">
-                Delete
-              </Button>
-              <Button
-                size="small"
-                color="primary"
-                variant="contained"
-                disableElevation
-              >
-                Edit
-              </Button> */}
+              {/* buttons go here */}
             </CardActions>
           </Card>
         </Box>

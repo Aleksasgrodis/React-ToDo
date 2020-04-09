@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./App.css";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { Paper } from "@material-ui/core";
 import NewTaskComponent from "./components/NewTaskComponent";
@@ -14,7 +13,6 @@ import Container from "@material-ui/core/Container";
 import { red } from "@material-ui/core/colors";
 import TaskDetails from "./components/TaskDetails";
 import TaskNav from "./components/TaskNav";
-
 
 function App() {
   const [todoList, setTodoList] = useState([
@@ -164,10 +162,6 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* <Typography variant="h3" gutterBottom color="textPrimary">
-          AMAZING(LY BAD) TODO LIST
-        </Typography> */}
-
         <Container maxWidth="lg">
           <Grid container spacing={1}>
             <TaskNav focussedList={focussedList} setFocussedList={setFocussedList} todoList={todoList}/>

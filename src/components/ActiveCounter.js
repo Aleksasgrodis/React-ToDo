@@ -1,8 +1,6 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import TaskDetails from "./TaskDetails";
-
 
 const ActiveCounter = ({todoList, focussedList}) => {
     const completedAmount = todoList.filter((todo) => todo.completed === false && todo.project === focussedList)

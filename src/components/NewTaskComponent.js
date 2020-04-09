@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
-
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import TextField from "@material-ui/core/TextField";
-
 import Grid from "@material-ui/core/Grid";
-
 import { Paper } from "@material-ui/core";
-
 
 const NewTaskComponent = ({todoList, setTodoList, focussedList}) => {
     const useStyles = makeStyles((theme) => ({

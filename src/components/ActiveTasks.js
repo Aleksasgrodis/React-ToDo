@@ -1,17 +1,12 @@
 import React from "react";
-
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
-
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Divider from '@material-ui/core/Divider';
-
-
-
 
 const ActiveTasks = ({todoList, setTodoList, setFocussedTask, focussedList}) => {
     const deleteTask = (id, e) => {

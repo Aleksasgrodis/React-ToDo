@@ -7,16 +7,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import { Paper } from "@material-ui/core";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import DraftsIcon from "@material-ui/icons/Drafts";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import Collapse from "@material-ui/core/Collapse";
-import SendIcon from "@material-ui/icons/Send";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import StarBorder from "@material-ui/icons/StarBorder";
 import { red } from "@material-ui/core/colors";
-import Divider from "@material-ui/core/Divider";
 import TurnedInIcon from "@material-ui/icons/TurnedIn";
 import Badge from "@material-ui/core/Badge";
 
@@ -93,37 +85,7 @@ const TaskNav = ({ todoList, focussedList, setFocussedList }) => {
             }
             className={classes.root}
           >
-            {" "}
             <NavList />
-            {/* <ListItem button onClick={() => handleListClick("Uncategorized")}>
-            <ListItemIcon>
-              <InboxIcon  color="secondary"/>
-            </ListItemIcon>
-            <ListItemText primary="Inbox" />
-          </ListItem>
-          
- 
-              <ListItem button className={classes.nested} >
-                <ListItemIcon>
-                  <StarBorder  color="secondary"/>
-                </ListItemIcon>
-                <ListItemText primary="Starred" />
-              </ListItem>
-
-          <Divider variant="inset" light /> */}
-            {/* <ListItem button >
-            <ListItemIcon>
-              <SendIcon/>
-            </ListItemIcon>
-            <ListItemText primary="Uncategorized" />
-          </ListItem> */}
-            {/* <ListItem button onClick={() => handleListClick("Criminal Activities")}>
-            <ListItemIcon>
-              <TurnedInIcon/>
-            </ListItemIcon>
-            <ListItemText primary="Criminal Activities" />
-          </ListItem>
-          <Divider variant="inset" light /> */}
           </List>
         </Box>
       </Paper>

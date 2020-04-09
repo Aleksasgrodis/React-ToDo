@@ -49,10 +49,12 @@ const TaskNav = ({ todoList, focussedList, setFocussedList }) => {
 
   const classes = useStyles();
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
-  const [open, setOpen] = React.useState(true);
+  const selectedItem = (project) => {
+    if (focussedList == project){
+      return true
+    }
+  }
+
 
   const handleListClick = (listName) => {
     setFocussedList(listName);
@@ -66,7 +68,7 @@ const TaskNav = ({ todoList, focussedList, setFocussedList }) => {
   const navArray = [...new Set(todoList.map((task) => task.project))];
   const NavList = () => {
     return navArray.map((item, index) => (
-      <ListItem key={index} button onClick={() => handleListClick(item)}>
+      <ListItem key={index} button selected={selectedItem(item)} onClick={() => handleListClick(item)}>
         <ListItemIcon>
           <Badge badgeContent={taskCount(item)} color="secondary">
             <TurnedInIcon />

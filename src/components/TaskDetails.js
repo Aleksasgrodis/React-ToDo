@@ -48,6 +48,12 @@ const TaskDetails = ({ todoList, setTodoList, taskID }) => {
     },
     avatar: {
       backgroundColor: red[500],
+    },formControl: {
+      margin: theme.spacing(2),
+      minWidth: 10,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
     },
   }));
   const classes = useStyles();
@@ -87,13 +93,14 @@ const TaskDetails = ({ todoList, setTodoList, taskID }) => {
 
   const ChangeProject = () => {
     return (
-      <FormControl fullWidth className={classes.formControl}>
+      <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="demo-simple-select-label">Project</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
           value={selectedTask.project}
           onChange={handleProjectChange}
+          label="Project"
         >
           {projectList.map((item, index) => <MenuItem key={index} value={item}>{item}</MenuItem>)}
         </Select>
@@ -125,6 +132,7 @@ const TaskDetails = ({ todoList, setTodoList, taskID }) => {
                 value={selectedTask.note}
                 multiline
                 onChange={onNoteChange}
+                variant="outlined"
               />
 
               {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>

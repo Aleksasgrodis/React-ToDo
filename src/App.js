@@ -7,12 +7,14 @@ import { Paper } from "@material-ui/core";
 import NewTaskComponent from "./components/NewTaskComponent";
 import ActiveCounter from "./components/ActiveCounter";
 import CompletedCounter from "./components/CompletedCounter";
-import ActiveTasks from "./components/ActiveTasks";
-import CompletedTasks from "./components/CompletedTasks";
+import ActiveTaskList from "./components/ActiveTaskList";
+import CompletedTaskList from "./components/CompletedTaskList";
 import Container from "@material-ui/core/Container";
 import { red } from "@material-ui/core/colors";
 import TaskDetails from "./components/TaskDetails";
 import TaskNav from "./components/TaskNav";
+import CompletedTasks from "./components/CompletedTasks";
+import ActiveTasks from "./components/ActiveTasks";
 
 function App() {
   const [todoList, setTodoList] = useState([
@@ -126,38 +128,8 @@ function App() {
       project: "Programming"
     },
   ]);
-
-  const useStyles = makeStyles((theme) => ({
-    margin: {
-      margin: theme.spacing(1),
-    },
-    extendedIcon: {
-      marginRight: theme.spacing(1),
-    },
-    media: {
-      height: 0,
-      paddingTop: "56.25%", // 16:9
-    },
-    expand: {
-      transform: "rotate(0deg)",
-      marginLeft: "auto",
-      transition: theme.transitions.create("transform", {
-        duration: theme.transitions.duration.shortest,
-      }),
-    },
-    expandOpen: {
-      transform: "rotate(180deg)",
-    },
-    avatar: {
-      backgroundColor: red[500],
-    },
-  }));
-  const classes = useStyles();
   const [focussedTask, setFocussedTask] = useState(6);
-
   const [focussedList, setFocussedList] = useState("Uncategorized")
-
-
 
   return (
     <div className="App">
@@ -173,29 +145,9 @@ function App() {
                   setTodoList={setTodoList}
                   focussedList={focussedList}
                 />
-
-                <Paper variant="outlined" style={{ margin: 16, padding: 4 }}>
-                  <ActiveCounter todoList={todoList} focussedList={focussedList}/>
-                  <List className={classes.root}>
-                    <ActiveTasks
-                      todoList={todoList}
-                      setTodoList={setTodoList}
-                      setFocussedTask={setFocussedTask}
-                      focussedList={focussedList}
-                    />
-                  </List>
-                </Paper>
-                <Paper variant="outlined" style={{ margin: 16, padding: 4 }}>
-                  <CompletedCounter todoList={todoList} focussedList={focussedList} />
-                  <List className={classes.root}>
-                    <CompletedTasks
-                      todoList={todoList}
-                      setTodoList={setTodoList}
-                      setFocussedTask={setFocussedTask}
-                      focussedList={focussedList}
-                    />
-                  </List>
-                </Paper>
+                <ActiveTasks todoList={todoList} focussedList={focussedList} setTodoList={setTodoList} setFocussedTask={setFocussedTask} />
+        
+                <CompletedTasks todoList={todoList} focussedList={focussedList} setTodoList={setTodoList} setFocussedTask={setFocussedTask} />
               </Paper>
             </Grid>
             <TaskDetails todoList={todoList} taskID={focussedTask} setTodoList={setTodoList}/>

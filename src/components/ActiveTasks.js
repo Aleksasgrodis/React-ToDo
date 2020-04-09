@@ -1,62 +1,54 @@
 import React from "react";
-import DeleteIcon from "@material-ui/icons/Delete";
-import IconButton from "@material-ui/core/IconButton";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-import Checkbox from "@material-ui/core/Checkbox";
-import Divider from '@material-ui/core/Divider';
+import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import { Paper } from "@material-ui/core";
+import { red } from "@material-ui/core/colors";
+import ActiveCounter from "./ActiveCounter";
+import ActiveTaskList from "./ActiveTaskList";
 
-const ActiveTasks = ({todoList, setTodoList, setFocussedTask, focussedList}) => {
-    const deleteTask = (id, e) => {
-      e.preventDefault();
-      let newList = [...todoList];
-      let toberemoved = newList.map((task) => task.id).indexOf(id);
-      newList.splice(toberemoved, 1);
-      setTodoList(newList);
-    };
-  
-    const checkboxHandler = (id) => {
-      let newList = [...todoList];
-      let indexOfTarget = newList.map((task) => task.id).indexOf(id);
-      newList[indexOfTarget].completed = !newList[indexOfTarget].completed;
-      newList[indexOfTarget].date = new Date();
-      setTodoList(newList);
-    };
+const ActiveTasks = ({
+  todoList,
+  setTodoList,
+  focussedList,
+  setFocussedTask,
+}) => {
+  const useStyles = makeStyles((theme) => ({
+    margin: {
+      margin: theme.spacing(1),
+    },
+    extendedIcon: {
+      marginRight: theme.spacing(1),
+    },
+    media: {
+      height: 0,
+      paddingTop: "56.25%", // 16:9
+    },
+    expand: {
+      transform: "rotate(0deg)",
+      marginLeft: "auto",
+      transition: theme.transitions.create("transform", {
+        duration: theme.transitions.duration.shortest,
+      }),
+    },
+    expandOpen: {
+      transform: "rotate(180deg)",
+    },
+    avatar: {
+      backgroundColor: red[500],
+    },
+  }));
+  const classes = useStyles();
 
-    const onClickHandler =(id) => {
-      setFocussedTask(id)
-      }
-    return todoList
-      .filter((task) => task.completed === false && task.project === focussedList)
-      .sort((a, b) => b.date - a.date)
-      .map((task, index) => (
-        <div key={task.id}>
-          <ListItem key={task.id} dense button onClick={() => onClickHandler(task.id)}>
-            <ListItemIcon>
-              <Checkbox
-                edge="start"
-                checked={task.completed}
-                onChange={() => checkboxHandler(task.id)}
-              />
-            </ListItemIcon>
-            <ListItemText primary={task.text} />
-            <ListItemSecondaryAction>
-              <IconButton
-                edge="end"
-                aria-label="delete"
-                onClick={(e) => {
-                  return deleteTask(task.id, e);
-                }}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-          <Divider variant="inset" light />
-        </div>
-      ));
-  };
-
-  export default ActiveTasks;
+  return <Paper variant="outlined" style={{ margin: 16, padding: 4 }}>
+  <ActiveCounter todoList={todoList} focussedList={focussedList}/>
+  <List className={classes.root}>
+    <ActiveTaskList
+      todoList={todoList}
+      setTodoList={setTodoList}
+      setFocussedTask={setFocussedTask}
+      focussedList={focussedList}
+    />
+  </List>
+</Paper>
+};
+export default ActiveTasks

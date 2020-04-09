@@ -95,7 +95,7 @@ const TaskDetails = ({ todoList, setTodoList, taskID }) => {
           value={selectedTask.project}
           onChange={handleProjectChange}
         >
-          {projectList.map(item => <MenuItem value={item}>{item}</MenuItem>)}
+          {projectList.map((item, index) => <MenuItem key={index} value={item}>{item}</MenuItem>)}
         </Select>
       </FormControl>
     );

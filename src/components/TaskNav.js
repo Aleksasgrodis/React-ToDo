@@ -72,24 +72,9 @@ const TaskNav = ({ todoList, focussedList, setFocussedList }) => {
   };
 
   return (
-    <Grid item xs={3}>
-      <Paper className={classes.paper} style={{ padding: 16 }}>
-        <Box component="div" textOverflow="ellipsis">
-          <List
-            component="nav"
-            aria-labelledby="nested-list-subheader"
-            subheader={
-              <ListSubheader component="div" id="nested-list-subheader">
-                Navigation
-              </ListSubheader>
-            }
-            className={classes.root}
-          >
+          <List>
             <NavList />
           </List>
-        </Box>
-      </Paper>
-    </Grid>
   );
 };
 
